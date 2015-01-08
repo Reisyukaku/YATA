@@ -1,0 +1,10 @@
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\bin\Release\YATE.exe.config
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\bin\Release\YATE.exe
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\bin\Release\YATE.pdb
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.Form1.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.Properties.Resources.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.Sim.resources
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.csproj.GenerateResource.Cache
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.exe
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.pdb

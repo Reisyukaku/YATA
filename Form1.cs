@@ -131,19 +131,16 @@ namespace YATE {
             int i = 0;
             long len = dec_br.BaseStream.Length;
             while (i < len) {
-               //MessageBox.Show("buffleng=" + buff.Length.ToString("X") + " | i=" + i.ToString());
-                dec_br.BaseStream.Position = offset;
-                val = dec_br.ReadUInt16();
-                red = Convert5To8[(val >> 11) & 0x1F];
-                green = (byte)(((val >> 5) & 0x3F) * 4);
-                blue = Convert5To8[val & 0x1F];
-                
-                i++;
-            }
-            for (int x = 0; x < imgWidth; x++) {
-                for (int y = 0; y < imgHeight; y++) {
-                    img.SetPixel(x, y, Color.FromArgb(0xFF, red, green, blue));
-                    Console.WriteLine(img.GetPixel(1, 4).ToString());
+                try {
+                    dec_br.BaseStream.Position = offset;
+                    val = dec_br.ReadUInt16();
+                    red = Convert5To8[(val >> 11) & 0x1F];
+                    green = (byte)(((val >> 5) & 0x3F) * 4);
+                    blue = Convert5To8[val & 0x1F];
+                    img.SetPixel(i / imgWidth, i % imgHeight, Color.FromArgb(0xFF, red, green, blue));
+                    i++;
+                }catch(IOException e){
+                    Console.WriteLine(e.StackTrace);
                 }
             }
             dec_br.Close();
