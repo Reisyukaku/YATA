@@ -129,21 +129,22 @@ namespace YATE {
             BinaryReader dec_br = new BinaryReader(File.Open("dec_LZ.bin", FileMode.Open));
             ushort val;
             int i = 0;
-            long len = dec_br.BaseStream.Length;
-            while (i < len) {
-                try {
-                    dec_br.BaseStream.Position = offset;
-                    val = dec_br.ReadUInt16();
-                    red = Convert5To8[(val >> 11) & 0x1F];
-                    green = (byte)(((val >> 5) & 0x3F) * 4);
-                    blue = Convert5To8[val & 0x1F];
-                    img.SetPixel(i / imgWidth, i % imgHeight, Color.FromArgb(0xFF, red, green, blue));
-                    i++;
-                }catch(IOException e){
-                    Console.WriteLine(e.StackTrace);
-                }
-            }
+            buff = dec_br.ReadBytes((int)length);
             dec_br.Close();
+            try {
+                while (i <= length - 1) {
+                
+                        val = (ushort)(buff[i+1] | buff[i]);
+                        red = Convert5To8[(val >> 11) & 0x1F];
+                        green = (byte)(((val >> 5) & 0x3F) * 4);
+                        blue = Convert5To8[val & 0x1F];
+                        img.SetPixel(i / imgWidth, i % imgHeight, Color.FromArgb(0xFF, red, green, blue));
+                        i+=2;
+             
+                }
+             }catch(IOException e){
+                Console.WriteLine(e.StackTrace);
+             }
             images.Add(img);
             return img;
         }
