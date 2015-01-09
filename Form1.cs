@@ -16,6 +16,8 @@ namespace YATE {
         public Form1() {
             InitializeComponent();
         }
+        private const int RGB565 = 0;
+        private const int RGB888 = 1;
 
         private bool useBGM = true;
         private bool imgListBoxLoaded = false;
@@ -88,16 +90,24 @@ namespace YATE {
             imgLens.Add(0x10000);
             imgLens.Add(0x4000);
             imgListBoxLoaded = true;
+            uint[] imgO = imgOffs.ToArray();
+            uint[] imgL = imgLens.ToArray();
+            images.Add(getImage(imgO[0], imgL[0], RGB565));
+            images.Add(getImage(imgO[1], imgL[1], RGB565));
+            images.Add(getImage(imgO[2], imgL[2], RGB888));
+            images.Add(getImage(imgO[3], imgL[3], RGB888));
+            images.Add(getImage(imgO[4], imgL[4], RGB888));
+            images.Add(getImage(imgO[5], imgL[5], RGB888));
         }
 
         private void imgListBox_SelectedIndexChanged(object sender, EventArgs e) {
             if (imgListBoxLoaded == true){
                 int item = imgListBox.SelectedIndex;
-                pictureBox1.Image = getImage(imgOffs[item], imgLens[item]);
+                pictureBox1.Image = images.ToArray()[item];
             }
         }
 
-        private Bitmap getImage(uint offset, uint length) {
+        private Bitmap getImage(uint offset, uint length, int type) {
             byte[] buff = new byte[length];
             int red = 0, green = 0, blue = 0;
             int imgWidth = 0, imgHeight = 0;
@@ -132,20 +142,23 @@ namespace YATE {
             buff = dec_br.ReadBytes((int)length);
             dec_br.Close();
             try {
-                while (i <= length - 1) {
+                if(type == RGB565){
+                    while (i <= length - 1) {
                 
-                        val = (ushort)(buff[i+1] | buff[i]);
-                        red = Convert5To8[(val >> 11) & 0x1F];
-                        green = (byte)(((val >> 5) & 0x3F) * 4);
-                        blue = Convert5To8[val & 0x1F];
-                        img.SetPixel(i / imgWidth, i % imgHeight, Color.FromArgb(0xFF, red, green, blue));
-                        i+=2;
+                            val = (ushort)(buff[i+1] | buff[i]);
+                            red = Convert5To8[(val >> 11) & 0x1F];
+                            green = (byte)(((val >> 5) & 0x3F) * 4);
+                            blue = Convert5To8[val & 0x1F];
+                            img.SetPixel(i / imgWidth, i % imgHeight, Color.FromArgb(0xFF, red, green, blue));
+                            i+=2;
              
+                    }
+                }else if (type == RGB888){
+                    //
                 }
              }catch(IOException e){
                 Console.WriteLine(e.StackTrace);
              }
-            images.Add(img);
             return img;
         }
 
