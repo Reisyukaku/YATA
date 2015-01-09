@@ -154,7 +154,9 @@ namespace YATE {
              
                     }
                 }else if (type == RGB888){
-                    //
+                    for (int col = 0, count = 0; col < buff.Length - 3; col+=3, count++) {
+                        img.SetPixel(count / imgWidth, count % imgHeight, Color.FromArgb(0xFF, buff[col], buff[col+1], buff[col+2]));
+                    }
                 }
              }catch(IOException e){
                 Console.WriteLine(e.StackTrace);
