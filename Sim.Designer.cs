@@ -23,19 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.topImage = new System.Windows.Forms.PictureBox();
             this.bottomImage = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
+            this.topImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.bottomImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topImage)).BeginInit();
             this.SuspendLayout();
-            // 
-            // topImage
-            // 
-            this.topImage.Location = new System.Drawing.Point(0, 0);
-            this.topImage.Name = "topImage";
-            this.topImage.Size = new System.Drawing.Size(400, 240);
-            this.topImage.TabIndex = 0;
-            this.topImage.TabStop = false;
             // 
             // bottomImage
             // 
@@ -45,6 +37,14 @@
             this.bottomImage.TabIndex = 1;
             this.bottomImage.TabStop = false;
             // 
+            // topImage
+            // 
+            this.topImage.Location = new System.Drawing.Point(0, 0);
+            this.topImage.Name = "topImage";
+            this.topImage.Size = new System.Drawing.Size(400, 240);
+            this.topImage.TabIndex = 0;
+            this.topImage.TabStop = false;
+            // 
             // Sim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -53,10 +53,11 @@
             this.ClientSize = new System.Drawing.Size(400, 482);
             this.Controls.Add(this.bottomImage);
             this.Controls.Add(this.topImage);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Sim";
-            this.Text = "Sim";
-            ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
+            this.Text = "Theme Simulator";
             ((System.ComponentModel.ISupportInitialize)(this.bottomImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topImage)).EndInit();
             this.ResumeLayout(false);
 
         }

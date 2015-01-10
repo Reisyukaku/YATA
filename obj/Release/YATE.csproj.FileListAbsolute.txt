@@ -8,3 +8,4 @@ C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.S
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.csproj.GenerateResource.Cache
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.exe
 C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.pdb
+C:\Users\Adam\Documents\Visual Studio 2013\Projects\YATE\YATE\obj\Release\YATE.Sett.resources

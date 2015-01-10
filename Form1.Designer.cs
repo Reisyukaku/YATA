@@ -27,6 +27,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.FileDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.openFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
             this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
             this.imgListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileDropDown,
+            this.toolStripSettings,
             this.SimToolStrip});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -65,6 +67,17 @@
             this.openFile.Size = new System.Drawing.Size(103, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
+            // 
+            // toolStripSettings
+            // 
+            this.toolStripSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSettings.Enabled = false;
+            this.toolStripSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSettings.Image")));
+            this.toolStripSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSettings.Name = "toolStripSettings";
+            this.toolStripSettings.Size = new System.Drawing.Size(53, 22);
+            this.toolStripSettings.Text = "Settings";
+            this.toolStripSettings.Click += new System.EventHandler(this.toolStripSettings_Click);
             // 
             // SimToolStrip
             // 
@@ -117,7 +130,7 @@
             this.Controls.Add(this.imgListBox);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Yet Another Theme Editor (YATE) by Rei";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -136,6 +149,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileLZ;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripButton toolStripSettings;
     }
 }
 

@@ -53,6 +53,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sett.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sett.Designer.cs">
+      <DependentUpon>Sett.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +76,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Sett.resx">
+      <DependentUpon>Sett.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sim.resx">
       <DependentUpon>Sim.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,6 +96,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\friends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LncApltPictMemo_00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LncApltPictOlv_00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LncApltPictWeb_00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LncApltPictNews_00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HudBatBase_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HudNetAtnInt_00.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
