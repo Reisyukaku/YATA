@@ -25,14 +25,15 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.FileDropDown = new System.Windows.Forms.ToolStripDropDownButton();
-            this.openFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
-            this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
             this.imgListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileLZ = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FileDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.openFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
+            this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
+            this.prefToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -48,47 +49,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(556, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // FileDropDown
-            // 
-            this.FileDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.FileDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openFile});
-            this.FileDropDown.Image = ((System.Drawing.Image)(resources.GetObject("FileDropDown.Image")));
-            this.FileDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.FileDropDown.Name = "FileDropDown";
-            this.FileDropDown.Size = new System.Drawing.Size(38, 22);
-            this.FileDropDown.Text = "File";
-            this.FileDropDown.ToolTipText = "File";
-            // 
-            // openFile
-            // 
-            this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(103, 22);
-            this.openFile.Text = "Open";
-            this.openFile.Click += new System.EventHandler(this.openFile_Click);
-            // 
-            // toolStripSettings
-            // 
-            this.toolStripSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSettings.Enabled = false;
-            this.toolStripSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSettings.Image")));
-            this.toolStripSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSettings.Name = "toolStripSettings";
-            this.toolStripSettings.Size = new System.Drawing.Size(53, 22);
-            this.toolStripSettings.Text = "Settings";
-            this.toolStripSettings.Click += new System.EventHandler(this.toolStripSettings_Click);
-            // 
-            // SimToolStrip
-            // 
-            this.SimToolStrip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.SimToolStrip.Enabled = false;
-            this.SimToolStrip.Image = ((System.Drawing.Image)(resources.GetObject("SimToolStrip.Image")));
-            this.SimToolStrip.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SimToolStrip.Name = "SimToolStrip";
-            this.SimToolStrip.Size = new System.Drawing.Size(57, 22);
-            this.SimToolStrip.Text = "Simulate";
-            this.SimToolStrip.Click += new System.EventHandler(this.SimToolStrip_Click);
             // 
             // imgListBox
             // 
@@ -120,6 +80,55 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // FileDropDown
+            // 
+            this.FileDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.FileDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openFile,
+            this.prefToolStrip});
+            this.FileDropDown.Image = ((System.Drawing.Image)(resources.GetObject("FileDropDown.Image")));
+            this.FileDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FileDropDown.Name = "FileDropDown";
+            this.FileDropDown.Size = new System.Drawing.Size(38, 22);
+            this.FileDropDown.Text = "File";
+            this.FileDropDown.ToolTipText = "File";
+            // 
+            // openFile
+            // 
+            this.openFile.Name = "openFile";
+            this.openFile.Size = new System.Drawing.Size(152, 22);
+            this.openFile.Text = "Open";
+            this.openFile.Click += new System.EventHandler(this.openFile_Click);
+            // 
+            // toolStripSettings
+            // 
+            this.toolStripSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSettings.Enabled = false;
+            this.toolStripSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSettings.Image")));
+            this.toolStripSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSettings.Name = "toolStripSettings";
+            this.toolStripSettings.Size = new System.Drawing.Size(53, 22);
+            this.toolStripSettings.Text = "Settings";
+            this.toolStripSettings.Click += new System.EventHandler(this.toolStripSettings_Click);
+            // 
+            // SimToolStrip
+            // 
+            this.SimToolStrip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SimToolStrip.Enabled = false;
+            this.SimToolStrip.Image = ((System.Drawing.Image)(resources.GetObject("SimToolStrip.Image")));
+            this.SimToolStrip.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SimToolStrip.Name = "SimToolStrip";
+            this.SimToolStrip.Size = new System.Drawing.Size(57, 22);
+            this.SimToolStrip.Text = "Simulate";
+            this.SimToolStrip.Click += new System.EventHandler(this.SimToolStrip_Click);
+            // 
+            // prefToolStrip
+            // 
+            this.prefToolStrip.Name = "prefToolStrip";
+            this.prefToolStrip.Size = new System.Drawing.Size(152, 22);
+            this.prefToolStrip.Text = "Preferences";
+            this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +159,7 @@
         private System.Windows.Forms.OpenFileDialog openFileLZ;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripButton toolStripSettings;
+        private System.Windows.Forms.ToolStripMenuItem prefToolStrip;
     }
 }
 

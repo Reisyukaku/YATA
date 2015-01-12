@@ -22,8 +22,8 @@ namespace YATE {
         }
 
         private void loadImages() {
-            topImage.Image = imgs[0];
-            bottomImage.Image = imgs[1];
+            topImage.Image = new Bitmap(imgs[0]);
+            bottomImage.Image = new Bitmap(imgs[1]);
             Image bat = Properties.Resources.battery;
             Image inter = Properties.Resources.net;
             Image note = Properties.Resources.notes;

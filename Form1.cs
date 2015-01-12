@@ -29,6 +29,7 @@ namespace YATE {
 
         //Other
         private bool imgListBoxLoaded = false;
+        private string path = null;
         private List<uint> imgOffs = new List<uint>();
         private List<uint> imgLens = new List<uint>();
         public static List<Bitmap> images = new List<Bitmap>();
@@ -43,23 +44,12 @@ namespace YATE {
                 imgOffs.Clear();
                 imgLens.Clear();
                 images.Clear();
+                path = openFileLZ.FileName.Substring(0, openFileLZ.FileName.LastIndexOf("\\") + 1);
+                dsdecmp.Decompress(openFileLZ.FileName, path + "dec_LZ.bin");
 
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = false;
-                startInfo.UseShellExecute = false;
-                startInfo.FileName = "DSDecmp.exe";
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.Arguments = "-d " + openFileLZ.FileName + " dec_LZ.bin";
-                if(!File.Exists("dec_LZ.bin")){
-                    MessageBox.Show("Something went wrong with the decompression.");
-                    return;
-                }
                 try {
-                    using (Process exeProcess = Process.Start(startInfo)) {
-                        exeProcess.WaitForExit();
-                    }
 
-                    BinaryReader br = new BinaryReader(File.Open("dec_LZ.bin", FileMode.Open));
+                    BinaryReader br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
                     br.BaseStream.Position = 0x5;
                     useBGM = br.ReadByte() == 0x0 ? false : true;
                     br.BaseStream.Position = 0x18;  //top
@@ -86,6 +76,7 @@ namespace YATE {
                 loadFlags();
                 SimToolStrip.Enabled = true;
                 toolStripSettings.Enabled = true;
+
             }
         }
 
@@ -114,7 +105,7 @@ namespace YATE {
         }
 
         private void loadFlags() {
-            BinaryReader dec_br = new BinaryReader(File.Open("dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
             dec_br.BaseStream.Position = 0x5;
             useBGM = dec_br.ReadByte() == 0x0 ? false : true;
             dec_br.BaseStream.Position = 0xC;
@@ -162,7 +153,7 @@ namespace YATE {
                 imgHeight = 128;
             }
             Bitmap img = new Bitmap(imgWidth, imgHeight);
-            BinaryReader dec_br = new BinaryReader(File.Open("dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
             dec_br.BaseStream.Position = offset;
             try {
                 uint i = 0, x = 0, y = 0;
@@ -293,6 +284,11 @@ namespace YATE {
         private void toolStripSettings_Click(object sender, EventArgs e) {
             Sett settings = new Sett();
             settings.Show();
+        }
+
+        private void prefToolStrip_Click(object sender, EventArgs e) {
+            Prefs pref = new Prefs();
+            pref.Show();
         }
     }
     public static class exten {
