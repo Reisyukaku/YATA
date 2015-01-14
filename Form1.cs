@@ -34,6 +34,7 @@ namespace YATE {
         public static uint topFrame = 0;  //0x10
         public static uint bottomDraw = 0;  //0x20
         public static uint bottomFrame = 0;   //0x24
+        public static uint[] enableSec;
 
         //Other
         private bool imgListBoxLoaded = false;
@@ -42,11 +43,13 @@ namespace YATE {
         private List<uint> imgLens = new List<uint>();
         public static List<Bitmap> images = new List<Bitmap>();
         private static Bitmap[] imageArray;
-        public static List<uint> enableSec = new List<uint>();
         private static List<uint> RGBOffs = new List<uint>();
         private uint unk = 0;
-        private uint cwavOff;
+        private uint cwavOff = 0;
+        private uint cwavLen = 0;
+        private List<byte[]> cwav = new List<byte[]>();
         public static byte magicByte;
+        public static byte[] outFile;
 
         private void newFile_Click(object sender, EventArgs e) {
             MessageBox.Show("Not implemented yet.");
@@ -81,7 +84,7 @@ namespace YATE {
                     imgOffs.Add((br.ReadBytes(4)).ToU32());
                     br.BaseStream.Position = 0x58;  //b2
                     imgOffs.Add((br.ReadBytes(4)).ToU32());
-                    br.BaseStream.Position = 0xBC;  //cwav
+                    br.BaseStream.Position = 0xC0;  //cwav
                     cwavOff = (br.ReadBytes(4)).ToU32();
                     br.Close();
                 }
@@ -91,6 +94,8 @@ namespace YATE {
                 loadFlags();
                 SimToolStrip.Enabled = true;
                 toolStripSettings.Enabled = true;
+                saveFile.Enabled = true;
+                saveAsFile.Enabled = true;
 
             }
         }
@@ -99,31 +104,33 @@ namespace YATE {
             List<string> strList = new List<string>();
             int e = 0;
             foreach (uint i in imgOffs){
-                strList.Add(imgEnum[e] + " (" + i.ToString("X08") + ")");
+                if(i > 0) strList.Add(imgEnum[e] + " (" + i.ToString("X08") + ")");
                 e++;
             }
             imgListBox.DataSource = strList.ToArray();
-            imgLens.Add(imgOffs[1] - imgOffs[0]);
-            imgLens.Add(unk - imgOffs[1]);
-            imgLens.Add(0x10000);
-            imgLens.Add(0x10000);
-            imgLens.Add(0x10000);
-            imgLens.Add(0x4000);
+            if(imgOffs[0] > 0) imgLens.Add(imgOffs[1] - imgOffs[0]);
+            if (imgOffs[1] > 0) imgLens.Add(unk - imgOffs[1]);
+            if (imgOffs[2] > 0) imgLens.Add(0x10000);
+            if (imgOffs[3] > 0) imgLens.Add(0x10000);
+            if (imgOffs[4] > 0) imgLens.Add(0x10000);
+            if (imgOffs[5] > 0) imgLens.Add(0x4000);
             imgListBoxLoaded = true;
             uint[] imgO = imgOffs.ToArray();
             uint[] imgL = imgLens.ToArray();
-            images.Add(getImage(imgO[0], imgL[0], RGB565));
-            images.Add(getImage(imgO[1], imgL[1], RGB565));
-            images.Add(getImage(imgO[2], imgL[2], RGB888));
-            images.Add(getImage(imgO[3], imgL[3], RGB888));
-            images.Add(getImage(imgO[4], imgL[4], RGB888));
-            images.Add(getImage(imgO[5], imgL[5], RGB888));
+            if (imgOffs[0] > 0) images.Add(getImage(imgO[0], imgL[0], RGB565));
+            if (imgOffs[1] > 0) images.Add(getImage(imgO[1], imgL[1], RGB565));
+            if (imgOffs[2] > 0) images.Add(getImage(imgO[2], imgL[2], RGB888));
+            if (imgOffs[3] > 0) images.Add(getImage(imgO[3], imgL[3], RGB888));
+            if (imgOffs[4] > 0) images.Add(getImage(imgO[4], imgL[4], RGB888));
+            if (imgOffs[5] > 0) images.Add(getImage(imgO[5], imgL[5], RGB888));
+            if (cwavOff > 0) //
             imageArray = images.ToArray();
             updatePicBox();
         }
 
         private void loadFlags() {
             BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+            List<uint> enables = new List<uint>();
             dec_br.BaseStream.Position = 0x5;
             useBGM = dec_br.ReadByte() == 0x0 ? false : true;
             dec_br.BaseStream.Position = 0xC;
@@ -135,69 +142,72 @@ namespace YATE {
             dec_br.BaseStream.Position = 0x24;
             bottomFrame = dec_br.ReadBytes(4).ToU32();
             dec_br.BaseStream.Position = 0x2C;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x30;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x34;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x38;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x3C;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x48;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x4C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x50;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x5C;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x60;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x64;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x68;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x6C;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x70;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x74;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x78;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x7C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x80;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x84;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x88;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x8C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x90;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x94;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x98;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x9C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xA0;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xA4;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xA8;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xAC;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB0;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB4;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB8;
-            enableSec.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());
+            dec_br.BaseStream.Position = 0xBC;
+            cwavLen = dec_br.ReadBytes(4).ToU32();
+            enableSec = enables.ToArray();
         }
 
         private void updatePicBox() {
@@ -361,6 +371,10 @@ namespace YATE {
             y &= 0x0000ffff;
         }
 
+        private void makeTheme() {
+            
+        }
+
         private void SimToolStrip_Click(object sender, EventArgs e) {
             Sim sim = new Sim();
             sim.Show();
@@ -378,6 +392,14 @@ namespace YATE {
 
         private void importToolstrip_Click(object sender, EventArgs e) {
             MessageBox.Show(imgListBox.SelectedIndex.ToString());
+        }
+
+        private void saveFile_Click(object sender, EventArgs e) {
+            makeTheme();
+        }
+
+        private void saveAsFile_Click(object sender, EventArgs e) {
+
         }
     }
     public static class exten {

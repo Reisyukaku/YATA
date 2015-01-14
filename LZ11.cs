@@ -197,8 +197,8 @@ Bit 16-23 Disp LSBs
             }
             if (readBytes < inLength) {
                 // the input may be 4-byte aligned.
-                if ((readBytes ^ (readBytes & 3)) + 4 < inLength)
-                    throw new TooMuchInputException(readBytes, inLength);
+                //if ((readBytes ^ (readBytes & 3)) + 4 < inLength)
+                    //throw new TooMuchInputException(readBytes, inLength);
             }
             return decompressedSize;
         }

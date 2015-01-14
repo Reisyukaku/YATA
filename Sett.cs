@@ -36,5 +36,40 @@ namespace YATE {
             CHK15.Checked = flags[15] == 1 ? true : false;
             CHK16.Checked = flags[16] == 1 ? true : false;
         }
+
+        private void buttonSaveSett_Click(object sender, EventArgs e) {
+            flags[0] = (uint)(CHK0.Checked ? 1 : 0);
+            flags[1] = (uint)(CHK1.Checked ? 1 : 0);
+            flags[2] = (uint)(CHK2.Checked ? 1 : 0);
+            flags[3] = (uint)(CHK3.Checked ? 1 : 0);
+            flags[4] = (uint)(CHK4.Checked ? 1 : 0);
+            flags[5] = (uint)(CHK5.Checked ? 1 : 0);
+            flags[6] = (uint)(CHK6.Checked ? 1 : 0);
+            flags[7] = (uint)(CHK7.Checked ? 1 : 0);
+            flags[8] = (uint)(CHK8.Checked ? 1 : 0);
+            flags[9] = (uint)(CHK9.Checked ? 1 : 0);
+            flags[10] = (uint)(CHK10.Checked ? 1 : 0);
+            flags[11] = (uint)(CHK11.Checked ? 1 : 0);
+            flags[12] = (uint)(CHK12.Checked ? 1 : 0);
+            flags[13] = (uint)(CHK13.Checked ? 1 : 0);
+            flags[14] = (uint)(CHK14.Checked ? 1 : 0);
+            flags[15] = (uint)(CHK15.Checked ? 1 : 0);
+            flags[16] = (uint)(CHK16.Checked ? 1 : 0);
+            Form1.topDraw = (uint)CB_topDraw.SelectedIndex;
+            Form1.bottomDraw = (uint)CB_botDraw.SelectedIndex;
+            Form1.topFrame = (uint)CB_topFrame.SelectedIndex;
+            Form1.bottomFrame = (uint)CB_botFrame.SelectedIndex;
+            Form1.enableSec = flags;
+            closeForm();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e) {
+            closeForm();
+        }
+
+        private void closeForm() {
+            this.Close();
+        }
+
     }
 }

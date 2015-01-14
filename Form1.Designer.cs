@@ -38,6 +38,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.importToolstrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -62,6 +64,8 @@
             this.newFile,
             this.toolStripSeparator1,
             this.openFile,
+            this.saveFile,
+            this.saveAsFile,
             this.prefToolStrip});
             this.FileDropDown.Image = ((System.Drawing.Image)(resources.GetObject("FileDropDown.Image")));
             this.FileDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -161,10 +165,27 @@
             // 
             // importToolstrip
             // 
+            this.importToolstrip.Enabled = false;
             this.importToolstrip.Name = "importToolstrip";
             this.importToolstrip.Size = new System.Drawing.Size(152, 22);
             this.importToolstrip.Text = "Import";
             this.importToolstrip.Click += new System.EventHandler(this.importToolstrip_Click);
+            // 
+            // saveFile
+            // 
+            this.saveFile.Enabled = false;
+            this.saveFile.Name = "saveFile";
+            this.saveFile.Size = new System.Drawing.Size(152, 22);
+            this.saveFile.Text = "Save";
+            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
+            // 
+            // saveAsFile
+            // 
+            this.saveAsFile.Enabled = false;
+            this.saveAsFile.Name = "saveAsFile";
+            this.saveAsFile.Size = new System.Drawing.Size(152, 22);
+            this.saveAsFile.Text = "Save As...";
+            this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
             // 
             // Form1
             // 
@@ -201,6 +222,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton EditDropDown;
         private System.Windows.Forms.ToolStripMenuItem importToolstrip;
+        private System.Windows.Forms.ToolStripMenuItem saveFile;
+        private System.Windows.Forms.ToolStripMenuItem saveAsFile;
     }
 }
 

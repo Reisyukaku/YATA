@@ -53,6 +53,7 @@
             this.CHK14 = new System.Windows.Forms.CheckBox();
             this.CHK15 = new System.Windows.Forms.CheckBox();
             this.CHK16 = new System.Windows.Forms.CheckBox();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -106,6 +107,7 @@
             this.buttonSaveSett.TabIndex = 2;
             this.buttonSaveSett.Text = "Save";
             this.buttonSaveSett.UseVisualStyleBackColor = true;
+            this.buttonSaveSett.Click += new System.EventHandler(this.buttonSaveSett_Click);
             // 
             // CB_topDraw
             // 
@@ -386,11 +388,22 @@
             this.CHK16.Text = "Enable 0xB8";
             this.CHK16.UseVisualStyleBackColor = true;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(396, 362);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(113, 26);
+            this.cancelButton.TabIndex = 5;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // Sett
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 392);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonSaveSett);
@@ -441,5 +454,6 @@
         private System.Windows.Forms.CheckBox CHK2;
         private System.Windows.Forms.CheckBox CHK1;
         private System.Windows.Forms.CheckBox CHK0;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
