@@ -27,19 +27,23 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.FileDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.newFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsFile = new System.Windows.Forms.ToolStripMenuItem();
             this.prefToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.importImage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
             this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
             this.imgListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileLZ = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
-            this.importToolstrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.openNewImg = new System.Windows.Forms.OpenFileDialog();
+            this.savePng = new System.Windows.Forms.SaveFileDialog();
+            this.saveTheme = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -77,23 +81,64 @@
             // newFile
             // 
             this.newFile.Name = "newFile";
-            this.newFile.Size = new System.Drawing.Size(152, 22);
+            this.newFile.Size = new System.Drawing.Size(135, 22);
             this.newFile.Text = "New";
             this.newFile.Click += new System.EventHandler(this.newFile_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
             // 
             // openFile
             // 
             this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(152, 22);
+            this.openFile.Size = new System.Drawing.Size(135, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
+            // 
+            // saveFile
+            // 
+            this.saveFile.Enabled = false;
+            this.saveFile.Name = "saveFile";
+            this.saveFile.Size = new System.Drawing.Size(135, 22);
+            this.saveFile.Text = "Save";
+            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
+            // 
+            // saveAsFile
+            // 
+            this.saveAsFile.Enabled = false;
+            this.saveAsFile.Name = "saveAsFile";
+            this.saveAsFile.Size = new System.Drawing.Size(135, 22);
+            this.saveAsFile.Text = "Save As...";
+            this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
             // 
             // prefToolStrip
             // 
             this.prefToolStrip.Name = "prefToolStrip";
-            this.prefToolStrip.Size = new System.Drawing.Size(152, 22);
+            this.prefToolStrip.Size = new System.Drawing.Size(135, 22);
             this.prefToolStrip.Text = "Preferences";
             this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
+            // 
+            // EditDropDown
+            // 
+            this.EditDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.EditDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importImage,
+            this.saveImage});
+            this.EditDropDown.Image = ((System.Drawing.Image)(resources.GetObject("EditDropDown.Image")));
+            this.EditDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditDropDown.Name = "EditDropDown";
+            this.EditDropDown.Size = new System.Drawing.Size(40, 22);
+            this.EditDropDown.Text = "Edit";
+            // 
+            // importImage
+            // 
+            this.importImage.Enabled = false;
+            this.importImage.Name = "importImage";
+            this.importImage.Size = new System.Drawing.Size(152, 22);
+            this.importImage.Text = "Import";
+            this.importImage.Click += new System.EventHandler(this.importToolstrip_Click);
             // 
             // toolStripSettings
             // 
@@ -147,45 +192,25 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStripSeparator1
+            // saveImage
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.saveImage.Enabled = false;
+            this.saveImage.Name = "saveImage";
+            this.saveImage.Size = new System.Drawing.Size(152, 22);
+            this.saveImage.Text = "Save Image";
+            this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
             // 
-            // EditDropDown
+            // openNewImg
             // 
-            this.EditDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.EditDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolstrip});
-            this.EditDropDown.Image = ((System.Drawing.Image)(resources.GetObject("EditDropDown.Image")));
-            this.EditDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EditDropDown.Name = "EditDropDown";
-            this.EditDropDown.Size = new System.Drawing.Size(40, 22);
-            this.EditDropDown.Text = "Edit";
+            this.openNewImg.Filter = "PNG Image|*.png|All files|*.*";
             // 
-            // importToolstrip
+            // savePng
             // 
-            this.importToolstrip.Enabled = false;
-            this.importToolstrip.Name = "importToolstrip";
-            this.importToolstrip.Size = new System.Drawing.Size(152, 22);
-            this.importToolstrip.Text = "Import";
-            this.importToolstrip.Click += new System.EventHandler(this.importToolstrip_Click);
+            this.savePng.Filter = "PNG Image|*.png";
             // 
-            // saveFile
+            // saveTheme
             // 
-            this.saveFile.Enabled = false;
-            this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(152, 22);
-            this.saveFile.Text = "Save";
-            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
-            // 
-            // saveAsFile
-            // 
-            this.saveAsFile.Enabled = false;
-            this.saveAsFile.Name = "saveAsFile";
-            this.saveAsFile.Size = new System.Drawing.Size(152, 22);
-            this.saveAsFile.Text = "Save As...";
-            this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
+            this.saveTheme.Filter = "body_LZ|*.bin";
             // 
             // Form1
             // 
@@ -221,9 +246,13 @@
         private System.Windows.Forms.ToolStripMenuItem newFile;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton EditDropDown;
-        private System.Windows.Forms.ToolStripMenuItem importToolstrip;
+        private System.Windows.Forms.ToolStripMenuItem importImage;
         private System.Windows.Forms.ToolStripMenuItem saveFile;
         private System.Windows.Forms.ToolStripMenuItem saveAsFile;
+        private System.Windows.Forms.ToolStripMenuItem saveImage;
+        private System.Windows.Forms.OpenFileDialog openNewImg;
+        private System.Windows.Forms.SaveFileDialog savePng;
+        private System.Windows.Forms.SaveFileDialog saveTheme;
     }
 }
 

@@ -103,7 +103,8 @@ namespace YATE {
                 toolStripSettings.Enabled = true;
                 saveFile.Enabled = true;
                 saveAsFile.Enabled = true;
-
+                saveImage.Enabled = true;
+                importImage.Enabled = true;
             }
         }
 
@@ -124,12 +125,9 @@ namespace YATE {
             if (imgOffs[5] > 0) lens.Add(0x4000);
             imgListBoxLoaded = true;
             imgLens = lens.ToArray();
-            if (imgOffs[0] > 0) images.Add(getImage(imgOffs[0], imgLens[0], RGB565));
-            if (imgOffs[1] > 0) images.Add(getImage(imgOffs[1], imgLens[1], RGB565));
-            if (imgOffs[2] > 0) images.Add(getImage(imgOffs[2], imgLens[2], RGB888));
-            if (imgOffs[3] > 0) images.Add(getImage(imgOffs[3], imgLens[3], RGB888));
-            if (imgOffs[4] > 0) images.Add(getImage(imgOffs[4], imgLens[4], RGB888));
-            if (imgOffs[5] > 0) images.Add(getImage(imgOffs[5], imgLens[5], RGB888));
+            for (int i = 0; i < imgOffs.Length; i++ ) {
+                if (imgOffs[i] > 0) images.Add(getImage(imgOffs[i], imgLens[i], i > 1 ? RGB888 : RGB565));
+            }
             if (cwavOff > 0) cwav = getCWAV();
             imageArray = images.ToArray();
             updatePicBox();
@@ -310,14 +308,14 @@ namespace YATE {
             BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
             dec_br.BaseStream.Position = offset;
             try {
-                uint i = 0, x = 0, y = 0;
+                uint x = 0, y = 0;
                 int p = gcm(img.Width, 8) / 8;
                 if (p == 0) p = 1;
-
+                
                 if(type == RGB565){
-                    int[] u16s = new int[length/2];
-                    for (int j = 0; j <= (length/2) - 1; j++) { u16s[j] = dec_br.ReadInt16(); }
-
+                    uint i = 0;
+                    int[] u16s = new int[length / 2];
+                    for (int j = 0; j <= (length / 2) - 1; j++) { u16s[j] = dec_br.ReadInt16(); }
                     foreach(int pix in u16s) {
                             d2xy(i % 64, out x, out y);
                             uint tile = i / 64;
@@ -332,15 +330,14 @@ namespace YATE {
                     }
                 }
                 else if (type == RGB888) {
-                    byte[] u8s = dec_br.ReadBytes((int)length);
-                    foreach (byte u in u8s ) {
+                    for (uint i = 0; i < length/8; i++ ) {
                         d2xy(i % 64, out x, out y);
                         uint tile = i / 64;
                         // Shift Tile Coordinate into Tilemap
                         x += (uint)(tile % p) * 8;
                         y += (uint)(tile / p) * 8;
-                        //img.SetPixel((int)x, (int)y, Color.FromArgb(0xFF, (int)u, (int)u, (int)u));
-                        i++;
+                        byte[] data = dec_br.ReadBytes(3);
+                        img.SetPixel((int)x, (int)y, Color.FromArgb(0xFF, data[0], data[1], data[2]));
                     }
                 }
              }catch(IOException e){
@@ -348,6 +345,41 @@ namespace YATE {
              }
             dec_br.Close();
             return img;
+        }
+
+        private byte[] bitmapToRawImg(Bitmap img, int format) {
+            List<byte> array = new List<byte>();
+            int w = img.Width;
+            int h = img.Height;
+            uint x = 0, y = 0;
+            int val = 0;
+            Color c = Color.Transparent;
+            int p = gcm(w, 8) / 8;
+            if (p == 0) p = 1;
+            for (uint i = 0; i < w * h; i++) {
+                d2xy(i % 64, out x, out y);
+                // Get Shift Tile
+                uint tile = i / 64;
+                // Shift Tile Coordinate into Tilemap
+                x += (uint)(tile % p) * 8;
+                y += (uint)(tile / p) * 8;
+                // Don't write data
+                if (x >= img.Width || y >= img.Height) { c = Color.FromArgb(0, 0, 0, 0); }
+                else { c = img.GetPixel((int)x, (int)y); if (c.A == 0) c = Color.FromArgb(0, 86, 86, 86); }
+                if(format == RGB565){
+                    // val += c.A >> 8; // unused
+                    val |= (byte)((c.R / 8) & 0x1f) << 11;
+                    val |= (byte)(((c.G / 4) & 0x3f) << 5);
+                    val |= (byte)((c.B / 8) & 0x1f);
+                }else if(format == RGB888){
+                    val += c.A;
+                    val += (int)(c.B << 8);
+                    val += (int)(c.G << 16);
+                    val += (int)(c.R << 24);
+                }
+                array.Add((byte)val);
+            }
+            return array.ToArray();
         }
 
         /// <summary>
@@ -430,8 +462,9 @@ namespace YATE {
             y &= 0x0000ffff;
         }
 
-        private void makeTheme() {
-            using (BinaryWriter bw = new BinaryWriter(File.Create(path + "body_LZ.bin.temp"))) {
+        private void makeTheme(string file) {
+            using (BinaryWriter bw = new BinaryWriter(File.Create(path + "body_LZ.bin.temp"))) { //this will become 'file'
+                //header
                 bw.Write(1);
                 bw.Write((byte)0);
                 bw.Write((byte)(useBGM ? 0x1 : 0x0));
@@ -487,6 +520,8 @@ namespace YATE {
                 bw.Write(0);
                 bw.Write(0);
                 bw.Write(0);
+                //top image
+                bw.Write(bitmapToRawImg(imageArray[0], RGB565));
                 bw.Close();
             }
         }
@@ -507,20 +542,49 @@ namespace YATE {
         }
 
         private void importToolstrip_Click(object sender, EventArgs e) {
-            MessageBox.Show(imgListBox.SelectedIndex.ToString());
+            if (openNewImg.ShowDialog() == DialogResult.OK) {
+                byte[] png = File.ReadAllBytes(openNewImg.FileName);
+                using (Stream BitmapStream = new MemoryStream(png)) {
+                    Image img = Image.FromStream(BitmapStream);
+                    Bitmap mBitmap = new Bitmap(img);
+                    if (mBitmap.Size.Height.isPower2() && mBitmap.Size.Width.isPower2()) {
+                        imageArray[imgListBox.SelectedIndex] = mBitmap;
+                        updatePicBox();
+                        BinaryWriter wr = new BinaryWriter(File.Create(path + "test.bin"));
+                        wr.Write(bitmapToRawImg(mBitmap, RGB565));
+                        wr.Close();
+                    }
+                    else {
+                        MessageBox.Show("Error: Image is not a power of 2.");
+                        return;
+                    }
+                    
+                }
+            }
         }
 
         private void saveFile_Click(object sender, EventArgs e) {
-            makeTheme();
+            makeTheme(path + "\\body_LZ.bin");
         }
 
         private void saveAsFile_Click(object sender, EventArgs e) {
+            if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                makeTheme(saveTheme.FileName);
+            }
+        }
 
+        private void saveImage_Click(object sender, EventArgs e) {
+            if (savePng.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                imageArray[imgListBox.SelectedIndex].Save(savePng.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
         }
     }
     public static class exten {
         public static uint ToU32(this byte[] b) {
             return (uint)BitConverter.ToInt32(b, 0);
+        }
+        public static bool isPower2(this int x) {
+            return (x != 0) && ((x & (x - 1)) == 0);
         }
     }
 }
