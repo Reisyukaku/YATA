@@ -29,7 +29,7 @@ namespace YATE {
 
         public Sim() {
             InitializeComponent();
-            imgs = Form1.images.ToArray();
+            imgs = Form1.imageArray;
             loadImages();
         }
 

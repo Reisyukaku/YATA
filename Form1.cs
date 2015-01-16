@@ -44,8 +44,7 @@ namespace YATE {
         private uint[] colorOffs;
         private uint topColorOff = 0;
         private uint addTopColorOff = 0;
-        public static List<Bitmap> images = new List<Bitmap>();
-        private static Bitmap[] imageArray;
+        public static Bitmap[] imageArray;
         private static List<uint> RGBOffs = new List<uint>();
         private uint unk = 0;
         private uint cwavOff = 0;
@@ -64,7 +63,7 @@ namespace YATE {
                 imgOffs = null;
                 imgLens = null;
                 colorOffs = null;
-                images.Clear();
+                imageArray = null;
                 path = openFileLZ.FileName.Substring(0, openFileLZ.FileName.LastIndexOf("\\") + 1);
                 dsdecmp.Decompress(openFileLZ.FileName, path + "dec_LZ.bin");
 
@@ -117,6 +116,7 @@ namespace YATE {
             }
             imgListBox.DataSource = strList.ToArray();
             List<uint> lens = new List<uint>();
+            List<Bitmap> images = new List<Bitmap>();
             if(imgOffs[0] > 0) lens.Add(imgOffs[1] - imgOffs[0]);
             if (imgOffs[1] > 0) lens.Add(unk - imgOffs[1]);
             if (imgOffs[2] > 0) lens.Add(0x10000);
@@ -463,7 +463,7 @@ namespace YATE {
         }
 
         private void makeTheme(string file) {
-            using (BinaryWriter bw = new BinaryWriter(File.Create(path + "body_LZ.bin.temp"))) { //this will become 'file'
+            using (BinaryWriter bw = new BinaryWriter(File.Create(file))) {
                 //header
                 bw.Write(1);
                 bw.Write((byte)0);
@@ -561,12 +561,14 @@ namespace YATE {
         }
 
         private void saveFile_Click(object sender, EventArgs e) {
-            makeTheme(path + "\\body_LZ.bin");
+            makeTheme(path + "\\body_LZ.bin.temp"); //will change this once its actually working
+            MessageBox.Show("Theme saved!");
         }
 
         private void saveAsFile_Click(object sender, EventArgs e) {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 makeTheme(saveTheme.FileName);
+                MessageBox.Show("Theme saved!");
             }
         }
 
