@@ -362,20 +362,25 @@ namespace YATE {
                 uint tile = i / 64;
                 x += (uint)(tile % p) * 8;
                 y += (uint)(tile / p) * 8;
-                if (x >= img.Width || y >= img.Height) { c = Color.FromArgb(0, 0, 0, 0); }
-                else { c = img.GetPixel((int)x, (int)y); if (c.A == 0) c = Color.FromArgb(0, 86, 86, 86); }
-                if(format == RGB565){
-                    val = (uint)((c.R / 8) & 0x1f) << 11;
-                    val += (uint)(((c.G / 4) & 0x3f) << 5);
-                    val += (uint)((c.B / 8) & 0x1f);
-                    array.Add((byte)((val >> 4) & 0xFF));
-                    array.Add((byte)(val & 0xFF));
-                }else if(format == RGB888){
-                    array.Add((byte)c.R);
-                    array.Add((byte)c.G);
-                    array.Add((byte)c.B);
+                if (!(x >= img.Width || y >= img.Height)) {
+                    c = img.GetPixel((int)x, (int)y);
+                    if (c.A == 0) c = Color.FromArgb(0, 86, 86, 86);
+                    if (format == RGB565) {
+                        val = (uint)((c.R / 8) & 0x1f) << 11;
+                        val += (uint)(((c.G / 4) & 0x3f) << 5);
+                        val += (uint)((c.B / 8) & 0x1f);
+                        array.Add((byte)(val & 0xFF));
+                        array.Add((byte)((val >> 8) & 0xFF));
+                    }
+                    else if (format == RGB888) {
+                        array.Add((byte)c.R);
+                        array.Add((byte)c.G);
+                        array.Add((byte)c.B);
+                    }
                 }
+                
             }
+
             return array.ToArray();
         }
 
