@@ -353,7 +353,7 @@ namespace YATE {
             int h = img.Height;
             w = h = Math.Max(nlpo2(w), nlpo2(h));
             uint x = 0, y = 0;
-            int val = 0;
+            uint val = 0;
             Color c;
             int p = gcm(w, 8) / 8;
             if (p == 0) p = 1;
@@ -365,16 +365,16 @@ namespace YATE {
                 if (x >= img.Width || y >= img.Height) { c = Color.FromArgb(0, 0, 0, 0); }
                 else { c = img.GetPixel((int)x, (int)y); if (c.A == 0) c = Color.FromArgb(0, 86, 86, 86); }
                 if(format == RGB565){
-                    val += (byte)((c.R / 8) & 0x1f) << 11;
-                    val += (byte)(((c.G / 4) & 0x3f) << 5);
-                    val += (byte)((c.B / 8) & 0x1f);
+                    val = (uint)((c.R / 8) & 0x1f) << 11;
+                    val += (uint)(((c.G / 4) & 0x3f) << 5);
+                    val += (uint)((c.B / 8) & 0x1f);
+                    array.Add((byte)((val >> 4) & 0xFF));
+                    array.Add((byte)(val & 0xFF));
                 }else if(format == RGB888){
-                    val += c.A;
-                    val += (int)(c.B << 8);
-                    val += (int)(c.G << 16);
-                    val += (int)(c.R << 24);
+                    array.Add((byte)c.R);
+                    array.Add((byte)c.G);
+                    array.Add((byte)c.B);
                 }
-                array.Add((byte)val);
             }
             return array.ToArray();
         }
