@@ -550,9 +550,6 @@ namespace YATE {
                     if (mBitmap.Size.Height.isPower2() && mBitmap.Size.Width.isPower2()) {
                         imageArray[imgListBox.SelectedIndex] = mBitmap;
                         updatePicBox();
-                        BinaryWriter wr = new BinaryWriter(File.Create(path + "test.bin"));
-                        wr.Write(bitmapToRawImg(mBitmap, RGB565));
-                        wr.Close();
                     }
                     else {
                         MessageBox.Show("Error: Image is not a power of 2.");
