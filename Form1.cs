@@ -351,26 +351,23 @@ namespace YATE {
             List<byte> array = new List<byte>();
             int w = img.Width;
             int h = img.Height;
+            w = h = Math.Max(nlpo2(w), nlpo2(h));
             uint x = 0, y = 0;
             int val = 0;
-            Color c = Color.Transparent;
+            Color c;
             int p = gcm(w, 8) / 8;
             if (p == 0) p = 1;
             for (uint i = 0; i < w * h; i++) {
                 d2xy(i % 64, out x, out y);
-                // Get Shift Tile
                 uint tile = i / 64;
-                // Shift Tile Coordinate into Tilemap
                 x += (uint)(tile % p) * 8;
                 y += (uint)(tile / p) * 8;
-                // Don't write data
                 if (x >= img.Width || y >= img.Height) { c = Color.FromArgb(0, 0, 0, 0); }
                 else { c = img.GetPixel((int)x, (int)y); if (c.A == 0) c = Color.FromArgb(0, 86, 86, 86); }
                 if(format == RGB565){
-                    // val += c.A >> 8; // unused
-                    val |= (byte)((c.R / 8) & 0x1f) << 11;
-                    val |= (byte)(((c.G / 4) & 0x3f) << 5);
-                    val |= (byte)((c.B / 8) & 0x1f);
+                    val += (byte)((c.R / 8) & 0x1f) << 11;
+                    val += (byte)(((c.G / 4) & 0x3f) << 5);
+                    val += (byte)((c.B / 8) & 0x1f);
                 }else if(format == RGB888){
                     val += c.A;
                     val += (int)(c.B << 8);
