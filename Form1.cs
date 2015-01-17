@@ -42,6 +42,7 @@ namespace YATE {
         private uint[] imgOffs;
         private uint[] imgLens;
         private uint[] colorOffs;
+        public byte[][] colChunks;
         private uint topColorOff = 0;
         private uint addTopColorOff = 0;
         public static Bitmap[] imageArray;
@@ -253,8 +254,36 @@ namespace YATE {
             offs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB4;
             offs.Add(dec_br.ReadBytes(4).ToU32());
-            dec_br.Close();
             colorOffs = offs.ToArray();
+            List<byte[]> cols = new List<byte[]>();
+            int cnt = 0;
+            foreach(uint i in colorOffs){
+                dec_br.BaseStream.Position = i;
+                switch(cnt){
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 13:
+                    case 14:
+                        cols.Add(dec_br.ReadBytes(0x10));
+                        break;
+                    case 5:
+                    case 6:
+                    case 11:
+                    case 12:
+                        cols.Add(dec_br.ReadBytes(0x20));
+                        break;
+                }
+                cnt++;
+            }
+            dec_br.Close();
+            colChunks = cols.ToArray();
         }
 
         private void updatePicBox() {
@@ -524,6 +553,27 @@ namespace YATE {
                 bw.Write(0);
                 //top image
                 bw.Write(bitmapToRawImg(imageArray[0], RGB565));
+                bw.Write(bitmapToRawImg(imageArray[1], RGB565));
+                bw.Write(colChunks[0]);
+                bw.Write(colChunks[1]);
+                bw.Write(bitmapToRawImg(imageArray[2], RGB888));
+                bw.Write(bitmapToRawImg(imageArray[3], RGB888));
+                bw.Write(colChunks[2]);
+                bw.Write(bitmapToRawImg(imageArray[4], RGB888));
+                bw.Write(bitmapToRawImg(imageArray[5], RGB888));
+                bw.Write(colChunks[3]);
+                bw.Write(colChunks[4]);
+                bw.Write(colChunks[5]);
+                bw.Write(colChunks[6]);
+                bw.Write(colChunks[7]);
+                bw.Write(colChunks[8]);
+                bw.Write(colChunks[9]);
+                bw.Write(colChunks[10]);
+                bw.Write(colChunks[11]);
+                bw.Write(colChunks[12]);
+                bw.Write(colChunks[13]);
+                bw.Write(colChunks[14]);
+                bw.Write(cwav);
                 bw.Close();
             }
         }
@@ -563,13 +613,18 @@ namespace YATE {
         }
 
         private void saveFile_Click(object sender, EventArgs e) {
-            makeTheme(path + "\\body_LZ.bin.temp"); //will change this once its actually working
+            makeTheme(path + "\\dec_body_LZ.bin");
+            dsdecmp.Compress(path + "\\dec_body_LZ.bin", path + "\\body_LZ.bin");
+            File.Delete(path + "\\dec_body_LZ.bin");
             MessageBox.Show("Theme saved!");
         }
 
         private void saveAsFile_Click(object sender, EventArgs e) {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                makeTheme(saveTheme.FileName);
+                string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
+                makeTheme(newpath + "dec_body_LZ.bin");
+                dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
+                File.Delete(newpath + "dec_body_LZ.bin");
                 MessageBox.Show("Theme saved!");
             }
         }
