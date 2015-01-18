@@ -108,17 +108,17 @@ namespace YATE {
             }
         }
 
-        private void loadList(){
+        private void loadList() {
             List<string> strList = new List<string>();
             int e = 0;
-            foreach (uint i in imgOffs){
-                if(i > 0) strList.Add(imgEnum[e] + " (" + i.ToString("X08") + ")");
+            foreach (uint i in imgOffs) {
+                if (i > 0) strList.Add(imgEnum[e] + " (" + i.ToString("X08") + ")");
                 e++;
             }
             imgListBox.DataSource = strList.ToArray();
             List<uint> lens = new List<uint>();
             List<Bitmap> images = new List<Bitmap>();
-            if(imgOffs[0] > 0) lens.Add(imgOffs[1] - imgOffs[0]);
+            if (imgOffs[0] > 0) lens.Add(imgOffs[1] - imgOffs[0]);
             if (imgOffs[1] > 0) lens.Add(unk - imgOffs[1]);
             if (imgOffs[2] > 0) lens.Add(0x10000);
             if (imgOffs[3] > 0) lens.Add(0x10000);
@@ -126,7 +126,7 @@ namespace YATE {
             if (imgOffs[5] > 0) lens.Add(0x4000);
             imgListBoxLoaded = true;
             imgLens = lens.ToArray();
-            for (int i = 0; i < imgOffs.Length; i++ ) {
+            for (int i = 0; i < imgOffs.Length; i++) {
                 if (imgOffs[i] > 0) images.Add(getImage(imgOffs[i], imgLens[i], i > 1 ? RGB888 : RGB565));
             }
             if (cwavOff > 0) cwav = getCWAV();
@@ -257,9 +257,9 @@ namespace YATE {
             colorOffs = offs.ToArray();
             List<byte[]> cols = new List<byte[]>();
             int cnt = 0;
-            foreach(uint i in colorOffs){
+            foreach (uint i in colorOffs) {
                 dec_br.BaseStream.Position = i;
-                switch(cnt){
+                switch (cnt) {
                     case 0:
                     case 1:
                     case 2:
@@ -291,7 +291,7 @@ namespace YATE {
         }
 
         private void imgListBox_SelectedIndexChanged(object sender, EventArgs e) {
-            if (imgListBoxLoaded == true){
+            if (imgListBoxLoaded == true) {
                 updatePicBox();
             }
         }
@@ -309,8 +309,8 @@ namespace YATE {
         private Bitmap getImage(uint offset, uint length, int type) {
             int red = 0, green = 0, blue = 0;
             int imgWidth = 0, imgHeight = 0;
-            if(offset != imgOffs[4]){
-                switch(length){
+            if (offset != imgOffs[4]) {
+                switch (length) {
                     case 0x40000:
                         imgWidth = 512;
                         imgHeight = 256;
@@ -340,26 +340,26 @@ namespace YATE {
                 uint x = 0, y = 0;
                 int p = gcm(img.Width, 8) / 8;
                 if (p == 0) p = 1;
-                
-                if(type == RGB565){
+
+                if (type == RGB565) {
                     uint i = 0;
                     int[] u16s = new int[length / 2];
                     for (int j = 0; j <= (length / 2) - 1; j++) { u16s[j] = dec_br.ReadInt16(); }
-                    foreach(int pix in u16s) {
-                            d2xy(i % 64, out x, out y);
-                            uint tile = i / 64;
-                            // Shift Tile Coordinate into Tilemap
-                            x += (uint)(tile % p) * 8;
-                            y += (uint)(tile / p) * 8;
-                            red = (byte)((pix >> 11) & 0x1f) * 8;
-                            green = (byte)(((pix >> 5) & 0x3f) * 4);
-                            blue = (byte)((pix) & 0x1f) * 8;
-                            img.SetPixel((int)x, (int)y, Color.FromArgb(0xFF, red, green, blue));
-                            i++;
+                    foreach (int pix in u16s) {
+                        d2xy(i % 64, out x, out y);
+                        uint tile = i / 64;
+                        // Shift Tile Coordinate into Tilemap
+                        x += (uint)(tile % p) * 8;
+                        y += (uint)(tile / p) * 8;
+                        red = (byte)((pix >> 11) & 0x1f) * 8;
+                        green = (byte)(((pix >> 5) & 0x3f) * 4);
+                        blue = (byte)((pix) & 0x1f) * 8;
+                        img.SetPixel((int)x, (int)y, Color.FromArgb(0xFF, red, green, blue));
+                        i++;
                     }
                 }
                 else if (type == RGB888) {
-                    for (uint i = 0; i < length/8; i++ ) {
+                    for (uint i = 0; i < length / 8; i++) {
                         d2xy(i % 64, out x, out y);
                         uint tile = i / 64;
                         // Shift Tile Coordinate into Tilemap
@@ -369,9 +369,10 @@ namespace YATE {
                         img.SetPixel((int)x, (int)y, Color.FromArgb(0xFF, data[0], data[1], data[2]));
                     }
                 }
-             }catch(IOException e){
+            }
+            catch (IOException e) {
                 Console.WriteLine(e.StackTrace);
-             }
+            }
             dec_br.Close();
             return img;
         }
@@ -407,7 +408,7 @@ namespace YATE {
                         array.Add((byte)c.B);
                     }
                 }
-                
+
             }
 
             return array.ToArray();
@@ -552,28 +553,28 @@ namespace YATE {
                 bw.Write(0);
                 bw.Write(0);
                 //top image
-                bw.Write(bitmapToRawImg(imageArray[0], RGB565));
-                bw.Write(bitmapToRawImg(imageArray[1], RGB565));
-                bw.Write(colChunks[0]);
-                bw.Write(colChunks[1]);
-                bw.Write(bitmapToRawImg(imageArray[2], RGB888));
-                bw.Write(bitmapToRawImg(imageArray[3], RGB888));
-                bw.Write(colChunks[2]);
-                bw.Write(bitmapToRawImg(imageArray[4], RGB888));
-                bw.Write(bitmapToRawImg(imageArray[5], RGB888));
-                bw.Write(colChunks[3]);
-                bw.Write(colChunks[4]);
-                bw.Write(colChunks[5]);
-                bw.Write(colChunks[6]);
-                bw.Write(colChunks[7]);
-                bw.Write(colChunks[8]);
-                bw.Write(colChunks[9]);
-                bw.Write(colChunks[10]);
-                bw.Write(colChunks[11]);
-                bw.Write(colChunks[12]);
-                bw.Write(colChunks[13]);
-                bw.Write(colChunks[14]);
-                bw.Write(cwav);
+                if(topDraw == 2 || topDraw == 3) bw.Write(bitmapToRawImg(imageArray[0], RGB565));
+                if(bottomDraw == 3) bw.Write(bitmapToRawImg(imageArray[1], RGB565));
+                if(enableSec[0] == 1) bw.Write(colChunks[0]);
+                if (enableSec[1] == 1) bw.Write(colChunks[1]);
+                if (enableSec[2] == 1) bw.Write(bitmapToRawImg(imageArray[2], RGB888));
+                if (enableSec[2] == 1) bw.Write(bitmapToRawImg(imageArray[3], RGB888));
+                if (enableSec[3] == 1) bw.Write(colChunks[2]);
+                if (enableSec[4] == 1) bw.Write(bitmapToRawImg(imageArray[4], RGB888));
+                if (enableSec[4] == 1) bw.Write(bitmapToRawImg(imageArray[5], RGB888));
+                if (enableSec[5] == 1) bw.Write(colChunks[3]);
+                if (enableSec[6] == 1) bw.Write(colChunks[4]);
+                if (enableSec[7] == 1) bw.Write(colChunks[5]);
+                if (enableSec[7] == 1) bw.Write(colChunks[6]);
+                if (enableSec[8] == 1) bw.Write(colChunks[7]);
+                if (enableSec[9] == 1) bw.Write(colChunks[8]);
+                if (enableSec[10] == 1) bw.Write(colChunks[9]);
+                if (enableSec[11] == 1) bw.Write(colChunks[10]);
+                if (enableSec[12] == 1) bw.Write(colChunks[11]);
+                if (enableSec[13] == 1) bw.Write(colChunks[12]);
+                if (enableSec[14] == 1) bw.Write(colChunks[13]);
+                if (enableSec[15] == 1) bw.Write(colChunks[14]);
+                if (enableSec[16] == 1) bw.Write(cwav);
                 bw.Close();
             }
         }
@@ -607,7 +608,7 @@ namespace YATE {
                         MessageBox.Show("Error: Image is not a power of 2.");
                         return;
                     }
-                    
+
                 }
             }
         }
@@ -623,8 +624,8 @@ namespace YATE {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
                 makeTheme(newpath + "dec_body_LZ.bin");
-                dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
-                File.Delete(newpath + "dec_body_LZ.bin");
+                //dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
+                //File.Delete(newpath + "dec_body_LZ.bin");
                 MessageBox.Show("Theme saved!");
             }
         }

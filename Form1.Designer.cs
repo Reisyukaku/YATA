@@ -34,16 +34,16 @@
             this.prefToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.importImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
             this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
             this.imgListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileLZ = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.saveImage = new System.Windows.Forms.ToolStripMenuItem();
-            this.openNewImg = new System.Windows.Forms.OpenFileDialog();
-            this.savePng = new System.Windows.Forms.SaveFileDialog();
             this.saveTheme = new System.Windows.Forms.SaveFileDialog();
+            this.savePng = new System.Windows.Forms.SaveFileDialog();
+            this.openNewImg = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -81,19 +81,19 @@
             // newFile
             // 
             this.newFile.Name = "newFile";
-            this.newFile.Size = new System.Drawing.Size(135, 22);
+            this.newFile.Size = new System.Drawing.Size(152, 22);
             this.newFile.Text = "New";
             this.newFile.Click += new System.EventHandler(this.newFile_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // openFile
             // 
             this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(135, 22);
+            this.openFile.Size = new System.Drawing.Size(152, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
@@ -101,7 +101,7 @@
             // 
             this.saveFile.Enabled = false;
             this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(135, 22);
+            this.saveFile.Size = new System.Drawing.Size(152, 22);
             this.saveFile.Text = "Save";
             this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
             // 
@@ -109,14 +109,14 @@
             // 
             this.saveAsFile.Enabled = false;
             this.saveAsFile.Name = "saveAsFile";
-            this.saveAsFile.Size = new System.Drawing.Size(135, 22);
+            this.saveAsFile.Size = new System.Drawing.Size(152, 22);
             this.saveAsFile.Text = "Save As...";
             this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
             // 
             // prefToolStrip
             // 
             this.prefToolStrip.Name = "prefToolStrip";
-            this.prefToolStrip.Size = new System.Drawing.Size(135, 22);
+            this.prefToolStrip.Size = new System.Drawing.Size(152, 22);
             this.prefToolStrip.Text = "Preferences";
             this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
             // 
@@ -139,6 +139,14 @@
             this.importImage.Size = new System.Drawing.Size(152, 22);
             this.importImage.Text = "Import";
             this.importImage.Click += new System.EventHandler(this.importToolstrip_Click);
+            // 
+            // saveImage
+            // 
+            this.saveImage.Enabled = false;
+            this.saveImage.Name = "saveImage";
+            this.saveImage.Size = new System.Drawing.Size(152, 22);
+            this.saveImage.Text = "Save Image";
+            this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
             // 
             // toolStripSettings
             // 
@@ -192,26 +200,6 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // saveImage
-            // 
-            this.saveImage.Enabled = false;
-            this.saveImage.Name = "saveImage";
-            this.saveImage.Size = new System.Drawing.Size(152, 22);
-            this.saveImage.Text = "Save Image";
-            this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
-            // 
-            // openNewImg
-            // 
-            this.openNewImg.Filter = "PNG Image|*.png|All files|*.*";
-            // 
-            // savePng
-            // 
-            this.savePng.Filter = "PNG Image|*.png";
-            // 
-            // saveTheme
-            // 
-            this.saveTheme.Filter = "body_LZ|*.bin";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,9 +238,9 @@
         private System.Windows.Forms.ToolStripMenuItem saveFile;
         private System.Windows.Forms.ToolStripMenuItem saveAsFile;
         private System.Windows.Forms.ToolStripMenuItem saveImage;
-        private System.Windows.Forms.OpenFileDialog openNewImg;
-        private System.Windows.Forms.SaveFileDialog savePng;
         private System.Windows.Forms.SaveFileDialog saveTheme;
+        private System.Windows.Forms.SaveFileDialog savePng;
+        private System.Windows.Forms.OpenFileDialog openNewImg;
     }
 }
 
