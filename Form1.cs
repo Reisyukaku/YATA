@@ -69,7 +69,6 @@ namespace YATE {
                 dsdecmp.Decompress(openFileLZ.FileName, path + "dec_LZ.bin");
 
                 try {
-
                     BinaryReader br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
                     if ((br.ReadBytes(4)).ToU32() != 0x1) { MessageBox.Show("Not a proper theme."); return; }
                     List<uint> offs = new List<uint>();
@@ -105,6 +104,8 @@ namespace YATE {
                 saveAsFile.Enabled = true;
                 saveImage.Enabled = true;
                 importImage.Enabled = true;
+                saveCWAVButton.Enabled = true;
+                importCWAVButton.Enabled = true;
             }
         }
 
@@ -633,6 +634,19 @@ namespace YATE {
         private void saveImage_Click(object sender, EventArgs e) {
             if (savePng.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 imageArray[imgListBox.SelectedIndex].Save(savePng.FileName, System.Drawing.Imaging.ImageFormat.Png);
+            }
+        }
+
+        private void saveCWAVButton_Click(object sender, EventArgs e) {
+            if (saveCWAVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                BinaryWriter br = new BinaryWriter(File.Create(saveCWAVDialog.FileName));
+                br.Write(getCWAV());
+            }
+        }
+
+        private void importCWAVButton_Click(object sender, EventArgs e) {
+            if (openCWAVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                cwav = File.ReadAllBytes(openCWAVDialog.FileName);
             }
         }
     }

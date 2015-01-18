@@ -35,6 +35,7 @@
             this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.importImage = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveCWAVButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
             this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
             this.imgListBox = new System.Windows.Forms.ListBox();
@@ -44,6 +45,9 @@
             this.saveTheme = new System.Windows.Forms.SaveFileDialog();
             this.savePng = new System.Windows.Forms.SaveFileDialog();
             this.openNewImg = new System.Windows.Forms.OpenFileDialog();
+            this.saveCWAVDialog = new System.Windows.Forms.SaveFileDialog();
+            this.importCWAVButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.openCWAVDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -125,7 +129,9 @@
             this.EditDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.EditDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importImage,
-            this.saveImage});
+            this.saveImage,
+            this.importCWAVButton,
+            this.saveCWAVButton});
             this.EditDropDown.Image = ((System.Drawing.Image)(resources.GetObject("EditDropDown.Image")));
             this.EditDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.EditDropDown.Name = "EditDropDown";
@@ -136,17 +142,25 @@
             // 
             this.importImage.Enabled = false;
             this.importImage.Name = "importImage";
-            this.importImage.Size = new System.Drawing.Size(134, 22);
-            this.importImage.Text = "Import";
+            this.importImage.Size = new System.Drawing.Size(152, 22);
+            this.importImage.Text = "Import Image";
             this.importImage.Click += new System.EventHandler(this.importToolstrip_Click);
             // 
             // saveImage
             // 
             this.saveImage.Enabled = false;
             this.saveImage.Name = "saveImage";
-            this.saveImage.Size = new System.Drawing.Size(134, 22);
+            this.saveImage.Size = new System.Drawing.Size(152, 22);
             this.saveImage.Text = "Save Image";
             this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
+            // 
+            // saveCWAVButton
+            // 
+            this.saveCWAVButton.Enabled = false;
+            this.saveCWAVButton.Name = "saveCWAVButton";
+            this.saveCWAVButton.Size = new System.Drawing.Size(152, 22);
+            this.saveCWAVButton.Text = "Save CWAV";
+            this.saveCWAVButton.Click += new System.EventHandler(this.saveCWAVButton_Click);
             // 
             // toolStripSettings
             // 
@@ -200,6 +214,34 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // saveTheme
+            // 
+            this.saveTheme.Filter = "body_LZ.bin|*.bin";
+            // 
+            // savePng
+            // 
+            this.savePng.Filter = "PNG Image|*.png";
+            // 
+            // openNewImg
+            // 
+            this.openNewImg.Filter = "PNG Image|*.png";
+            // 
+            // saveCWAVDialog
+            // 
+            this.saveCWAVDialog.Filter = "CTR Wave|*.bcwav";
+            // 
+            // importCWAVButton
+            // 
+            this.importCWAVButton.Enabled = false;
+            this.importCWAVButton.Name = "importCWAVButton";
+            this.importCWAVButton.Size = new System.Drawing.Size(152, 22);
+            this.importCWAVButton.Text = "Import CWAV";
+            this.importCWAVButton.Click += new System.EventHandler(this.importCWAVButton_Click);
+            // 
+            // openCWAVDialog
+            // 
+            this.openCWAVDialog.Filter = "CTR Wave|*.bcwav";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +283,10 @@
         private System.Windows.Forms.SaveFileDialog saveTheme;
         private System.Windows.Forms.SaveFileDialog savePng;
         private System.Windows.Forms.OpenFileDialog openNewImg;
+        private System.Windows.Forms.ToolStripMenuItem saveCWAVButton;
+        private System.Windows.Forms.SaveFileDialog saveCWAVDialog;
+        private System.Windows.Forms.ToolStripMenuItem importCWAVButton;
+        private System.Windows.Forms.OpenFileDialog openCWAVDialog;
     }
 }
 
