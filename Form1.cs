@@ -624,8 +624,8 @@ namespace YATE {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
                 makeTheme(newpath + "dec_body_LZ.bin");
-                //dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
-                //File.Delete(newpath + "dec_body_LZ.bin");
+                dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
+                File.Delete(newpath + "dec_body_LZ.bin");
                 MessageBox.Show("Theme saved!");
             }
         }
