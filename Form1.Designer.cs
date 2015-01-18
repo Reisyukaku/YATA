@@ -81,19 +81,19 @@
             // newFile
             // 
             this.newFile.Name = "newFile";
-            this.newFile.Size = new System.Drawing.Size(152, 22);
+            this.newFile.Size = new System.Drawing.Size(135, 22);
             this.newFile.Text = "New";
             this.newFile.Click += new System.EventHandler(this.newFile_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
             // 
             // openFile
             // 
             this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(152, 22);
+            this.openFile.Size = new System.Drawing.Size(135, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
@@ -101,7 +101,7 @@
             // 
             this.saveFile.Enabled = false;
             this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(152, 22);
+            this.saveFile.Size = new System.Drawing.Size(135, 22);
             this.saveFile.Text = "Save";
             this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
             // 
@@ -109,14 +109,14 @@
             // 
             this.saveAsFile.Enabled = false;
             this.saveAsFile.Name = "saveAsFile";
-            this.saveAsFile.Size = new System.Drawing.Size(152, 22);
+            this.saveAsFile.Size = new System.Drawing.Size(135, 22);
             this.saveAsFile.Text = "Save As...";
             this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
             // 
             // prefToolStrip
             // 
             this.prefToolStrip.Name = "prefToolStrip";
-            this.prefToolStrip.Size = new System.Drawing.Size(152, 22);
+            this.prefToolStrip.Size = new System.Drawing.Size(135, 22);
             this.prefToolStrip.Text = "Preferences";
             this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
             // 
@@ -136,7 +136,7 @@
             // 
             this.importImage.Enabled = false;
             this.importImage.Name = "importImage";
-            this.importImage.Size = new System.Drawing.Size(152, 22);
+            this.importImage.Size = new System.Drawing.Size(134, 22);
             this.importImage.Text = "Import";
             this.importImage.Click += new System.EventHandler(this.importToolstrip_Click);
             // 
@@ -144,7 +144,7 @@
             // 
             this.saveImage.Enabled = false;
             this.saveImage.Name = "saveImage";
-            this.saveImage.Size = new System.Drawing.Size(152, 22);
+            this.saveImage.Size = new System.Drawing.Size(134, 22);
             this.saveImage.Text = "Save Image";
             this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
             // 
@@ -210,7 +210,7 @@
             this.Controls.Add(this.imgListBox);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
-            this.Text = "Yet Another Theme Editor (YATE) by Rei";
+            this.Text = "YATA by Rei";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
