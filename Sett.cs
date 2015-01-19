@@ -8,25 +8,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace YATE {
+namespace YATA {
     public partial class Sett : Form {
+        
         private uint[] flags;
+        private Color[] colCursor;
+        private Color[] col3DFolder;
+        private Color[] colFiles;
+        private Color[] colArrowBut;
+        private Color[] colArrow;
+        private Color[] colBotBut;
+        private Color[] colGameTxt;
+        private Color[] colBotSolid;
+        private Color[] colBotOuter;
+        private Color[] colFolderBG;
+        private Color[] colFolderArrow;
+        private Color[] colIconResize;
+        private Color[] colTopOverlay;
+        private Color[] colDemoMsg;
+      
         public Sett() {
             InitializeComponent();
-            Button[] col1 = AddButtons(4, 0);
-            Button[] col2 = AddButtons(6, 1);
-            Button[] col3 = AddButtons(3, 2);
-            Button[] col4 = AddButtons(3, 3);
-            Button[] col5 = AddButtons(3, 4);
-            Button[] col6 = AddButtons(6, 5);
-            Button[] col7 = AddButtons(6, 6);
-            Button[] col8 = AddButtons(1, 7);
-            Button[] col9 = AddButtons(3, 8);
-            Button[] col10 = AddButtons(3, 9);
-            Button[] col11 = AddButtons(3, 10);
-            Button[] col12 = AddButtons(7, 11);
-            Button[] col13 = AddButtons(4, 12);
-            Button[] col14 = AddButtons(2, 13);
+            Button[] col1 = AddButtons(4, 0, Form1.enableSec[0] == 1 ? true : false);
+            Button[] col2 = AddButtons(6, 1, Form1.enableSec[1] == 1 ? true : false);
+            Button[] col3 = AddButtons(3, 2, Form1.enableSec[3] == 1 ? true : false);
+            Button[] col4 = AddButtons(3, 3, Form1.enableSec[5] == 1 ? true : false);
+            Button[] col5 = AddButtons(3, 4, Form1.enableSec[6] == 1 ? true : false);
+            Button[] col6 = AddButtons(6, 5, Form1.enableSec[7] == 1 ? true : false);
+            Button[] col7 = AddButtons(6, 6, Form1.enableSec[8] == 1 ? true : false);
+            Button[] col8 = AddButtons(1, 7, Form1.enableSec[9] == 1 ? true : false);
+            Button[] col9 = AddButtons(3, 8, Form1.enableSec[10] == 1 ? true : false);
+            Button[] col10 = AddButtons(3, 9, Form1.enableSec[11] == 1 ? true : false);
+            Button[] col11 = AddButtons(3, 10, Form1.enableSec[12] == 1 ? true : false);
+            Button[] col12 = AddButtons(7, 11, Form1.enableSec[13] == 1 ? true : false);
+            Button[] col13 = AddButtons(4, 12, Form1.enableSec[14] == 1 ? true : false);
+            Button[] col14 = AddButtons(2, 13, Form1.enableSec[15] == 1 ? true : false);
             foreach (Button b in col1) this.groupBox2.Controls.Add(b);
             foreach (Button b in col2) this.groupBox2.Controls.Add(b);
             foreach (Button b in col3) this.groupBox2.Controls.Add(b);
@@ -63,6 +79,11 @@ namespace YATE {
             CHK14.Checked = flags[14] == 1 ? true : false;
             CHK15.Checked = flags[15] == 1 ? true : false;
             CHK16.Checked = flags[16] == 1 ? true : false;
+            setColors();
+        }
+
+        private void setColors() {
+            
         }
 
         private void buttonSaveSett_Click(object sender, EventArgs e) {
@@ -102,18 +123,22 @@ namespace YATE {
         private void colorSelect(object sender, EventArgs e) {
             if(colDialog.ShowDialog() == DialogResult.OK){
                 ((Button)sender).BackColor = colDialog.Color;
+                string[] but = ((Button)sender).Name.Split('-');
+
             }
         }
 
-        private Button[] AddButtons(int amount, int yPos) {
+        private Button[] AddButtons(int amount, int yPos, bool enab) {
             Button[] btnArray = new Button[amount + 1];
             for (int i = 0; i < amount; i++) { 
                 btnArray[i] = new Button();
                 btnArray[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
                 btnArray[i].Size = new System.Drawing.Size(20, 20);
                 btnArray[i].Location = new System.Drawing.Point(90 + (i*22), 20 + (25*yPos));
-                btnArray[i].Name = "colSet"+yPos+"But"+i;
+                btnArray[i].Name = yPos+"-"+i;
                 btnArray[i].Click += new System.EventHandler(colorSelect);
+                btnArray[i].Enabled = enab;
+                btnArray[i].ForeColor = enab == true ? Color.Black : Color.Gray;
             }
             return btnArray;
         }

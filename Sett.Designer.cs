@@ -1,4 +1,4 @@
-﻿namespace YATE {
+﻿namespace YATA {
     partial class Sett {
         /// <summary>
         /// Required designer variable.
@@ -184,6 +184,7 @@
             // 
             // buttonSaveSett
             // 
+            this.buttonSaveSett.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonSaveSett.Location = new System.Drawing.Point(538, 458);
             this.buttonSaveSett.Name = "buttonSaveSett";
             this.buttonSaveSett.Size = new System.Drawing.Size(90, 26);

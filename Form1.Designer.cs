@@ -1,4 +1,4 @@
-﻿namespace YATE {
+﻿namespace YATA {
     partial class Form1 {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@
             this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.importImage = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImage = new System.Windows.Forms.ToolStripMenuItem();
+            this.importCWAVButton = new System.Windows.Forms.ToolStripMenuItem();
             this.saveCWAVButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSettings = new System.Windows.Forms.ToolStripButton();
             this.SimToolStrip = new System.Windows.Forms.ToolStripButton();
@@ -46,7 +47,6 @@
             this.savePng = new System.Windows.Forms.SaveFileDialog();
             this.openNewImg = new System.Windows.Forms.OpenFileDialog();
             this.saveCWAVDialog = new System.Windows.Forms.SaveFileDialog();
-            this.importCWAVButton = new System.Windows.Forms.ToolStripMenuItem();
             this.openCWAVDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -154,12 +154,20 @@
             this.saveImage.Text = "Save Image";
             this.saveImage.Click += new System.EventHandler(this.saveImage_Click);
             // 
+            // importCWAVButton
+            // 
+            this.importCWAVButton.Enabled = false;
+            this.importCWAVButton.Name = "importCWAVButton";
+            this.importCWAVButton.Size = new System.Drawing.Size(152, 22);
+            this.importCWAVButton.Text = "Import CWAVs";
+            this.importCWAVButton.Click += new System.EventHandler(this.importCWAVButton_Click);
+            // 
             // saveCWAVButton
             // 
             this.saveCWAVButton.Enabled = false;
             this.saveCWAVButton.Name = "saveCWAVButton";
             this.saveCWAVButton.Size = new System.Drawing.Size(152, 22);
-            this.saveCWAVButton.Text = "Save CWAV";
+            this.saveCWAVButton.Text = "Save CWAVs";
             this.saveCWAVButton.Click += new System.EventHandler(this.saveCWAVButton_Click);
             // 
             // toolStripSettings
@@ -228,19 +236,11 @@
             // 
             // saveCWAVDialog
             // 
-            this.saveCWAVDialog.Filter = "CTR Wave|*.bcwav";
-            // 
-            // importCWAVButton
-            // 
-            this.importCWAVButton.Enabled = false;
-            this.importCWAVButton.Name = "importCWAVButton";
-            this.importCWAVButton.Size = new System.Drawing.Size(152, 22);
-            this.importCWAVButton.Text = "Import CWAV";
-            this.importCWAVButton.Click += new System.EventHandler(this.importCWAVButton_Click);
+            this.saveCWAVDialog.Filter = "CTR Wave Chunk|*.bin";
             // 
             // openCWAVDialog
             // 
-            this.openCWAVDialog.Filter = "CTR Wave|*.bcwav";
+            this.openCWAVDialog.Filter = "CTR Wave Chunk|*.bin";
             // 
             // Form1
             // 

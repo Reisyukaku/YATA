@@ -1,4 +1,4 @@
-﻿namespace YATE {
+﻿namespace YATA {
     partial class Sim {
         /// <summary>
         /// Required designer variable.

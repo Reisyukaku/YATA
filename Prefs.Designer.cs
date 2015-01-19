@@ -1,4 +1,4 @@
-﻿namespace YATE {
+﻿namespace YATA {
     partial class Prefs {
         /// <summary>
         /// Required designer variable.

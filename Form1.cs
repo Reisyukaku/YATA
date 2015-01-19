@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace YATE {
+namespace YATA {
     public partial class Form1 : Form {
 
         public Form1() {
@@ -609,7 +609,7 @@ namespace YATE {
                         MessageBox.Show("Error: Image is not a power of 2.");
                         return;
                     }
-
+                    BitmapStream.Close();
                 }
             }
         }
@@ -641,6 +641,7 @@ namespace YATE {
             if (saveCWAVDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 BinaryWriter br = new BinaryWriter(File.Create(saveCWAVDialog.FileName));
                 br.Write(getCWAV());
+                br.Close();
             }
         }
 

@@ -10,14 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace YATE {
+namespace YATA {
     public partial class Sim : Form {
 
         Bitmap[] imgs;
         Image bottomImg;
         Image topImg;
         Image frame1, frame2, frame3;
-
+        
         Image bat = Properties.Resources.battery;
         Image inter = Properties.Resources.net;
         Image note = Properties.Resources.notes;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-namespace YATE {
+namespace YATA {
     #region dsdecmp Classes
     public class dsdecmp // LZ11 (de)compression
     {
