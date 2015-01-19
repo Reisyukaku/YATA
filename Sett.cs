@@ -13,6 +13,34 @@ namespace YATE {
         private uint[] flags;
         public Sett() {
             InitializeComponent();
+            Button[] col1 = AddButtons(4, 0);
+            Button[] col2 = AddButtons(6, 1);
+            Button[] col3 = AddButtons(3, 2);
+            Button[] col4 = AddButtons(3, 3);
+            Button[] col5 = AddButtons(3, 4);
+            Button[] col6 = AddButtons(6, 5);
+            Button[] col7 = AddButtons(6, 6);
+            Button[] col8 = AddButtons(1, 7);
+            Button[] col9 = AddButtons(3, 8);
+            Button[] col10 = AddButtons(3, 9);
+            Button[] col11 = AddButtons(3, 10);
+            Button[] col12 = AddButtons(7, 11);
+            Button[] col13 = AddButtons(4, 12);
+            Button[] col14 = AddButtons(2, 13);
+            foreach (Button b in col1) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col2) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col3) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col4) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col5) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col6) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col7) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col8) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col9) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col10) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col11) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col12) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col13) this.groupBox2.Controls.Add(b);
+            foreach (Button b in col14) this.groupBox2.Controls.Add(b);
             flags = Form1.enableSec.ToArray();
             CB_topDraw.SelectedIndex = (int)Form1.topDraw;
             CB_botDraw.SelectedIndex = (int)Form1.bottomDraw;
@@ -69,6 +97,25 @@ namespace YATE {
 
         private void closeForm() {
             this.Close();
+        }
+
+        private void colorSelect(object sender, EventArgs e) {
+            if(colDialog.ShowDialog() == DialogResult.OK){
+                ((Button)sender).BackColor = colDialog.Color;
+            }
+        }
+
+        private Button[] AddButtons(int amount, int yPos) {
+            Button[] btnArray = new Button[amount + 1];
+            for (int i = 0; i < amount; i++) { 
+                btnArray[i] = new Button();
+                btnArray[i].FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                btnArray[i].Size = new System.Drawing.Size(20, 20);
+                btnArray[i].Location = new System.Drawing.Point(90 + (i*22), 20 + (25*yPos));
+                btnArray[i].Name = "colSet"+yPos+"But"+i;
+                btnArray[i].Click += new System.EventHandler(colorSelect);
+            }
+            return btnArray;
         }
 
     }
