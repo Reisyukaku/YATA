@@ -29,7 +29,7 @@ namespace YATA {
                                          };
 
         //Flags
-        public static bool useBGM = true; //0x5
+        public static uint useBGM = 0; //0x5
         public static uint topDraw = 0;  //0xC
         public static uint topFrame = 0;  //0x10
         public static uint bottomDraw = 0;  //0x20
@@ -42,7 +42,7 @@ namespace YATA {
         private uint[] imgOffs;
         private uint[] imgLens;
         private uint[] colorOffs;
-        public byte[][] colChunks;
+        public static byte[][] colChunks;
         private uint topColorOff = 0;
         private uint addTopColorOff = 0;
         public static Bitmap[] imageArray;
@@ -72,8 +72,6 @@ namespace YATA {
                     BinaryReader br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
                     if ((br.ReadBytes(4)).ToU32() != 0x1) { MessageBox.Show("Not a proper theme."); return; }
                     List<uint> offs = new List<uint>();
-                    br.BaseStream.Position = 0x5;
-                    useBGM = br.ReadByte() == 0x0 ? false : true;
                     br.BaseStream.Position = 0x18;  //top
                     offs.Add((br.ReadBytes(4)).ToU32());
                     br.BaseStream.Position = 0x28;  //bot
@@ -139,7 +137,7 @@ namespace YATA {
             BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
             List<uint> enables = new List<uint>();
             dec_br.BaseStream.Position = 0x5;
-            useBGM = dec_br.ReadByte() == 0x0 ? false : true;
+            useBGM = dec_br.ReadByte();
             dec_br.BaseStream.Position = 0xC;
             topDraw = dec_br.ReadBytes(4).ToU32();
             dec_br.BaseStream.Position = 0x10;
@@ -149,69 +147,69 @@ namespace YATA {
             dec_br.BaseStream.Position = 0x24;
             bottomFrame = dec_br.ReadBytes(4).ToU32();
             dec_br.BaseStream.Position = 0x2C;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //0 - Cursor
             dec_br.BaseStream.Position = 0x30;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x34;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //1 - 3D Folder
             dec_br.BaseStream.Position = 0x38;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x3C;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //2 - Folder tex'
             dec_br.BaseStream.Position = 0x48;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //3 - file graphic
             dec_br.BaseStream.Position = 0x4C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x50;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //4 - Border tex'
             dec_br.BaseStream.Position = 0x5C;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //5 - Arrow But
             dec_br.BaseStream.Position = 0x60;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x64;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //6 - Arrow
             dec_br.BaseStream.Position = 0x68;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x6C;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //7 - Bottom/Close But
             dec_br.BaseStream.Position = 0x70;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x74;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x78;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //8 - Game text
             dec_br.BaseStream.Position = 0x7C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x80;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //9 - Bottom Solid
             dec_br.BaseStream.Position = 0x84;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x88;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //10 - Bottom Outer
             dec_br.BaseStream.Position = 0x8C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x90;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //11 - Folder BG
             dec_br.BaseStream.Position = 0x94;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0x98;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //12 - Folder Arrow
             dec_br.BaseStream.Position = 0x9C;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xA0;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //13 - Icon-resize
             dec_br.BaseStream.Position = 0xA4;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xA8;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //14 - Top Overlay
             dec_br.BaseStream.Position = 0xAC;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB0;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //15 - Demo Msg
             dec_br.BaseStream.Position = 0xB4;
             RGBOffs.Add(dec_br.ReadBytes(4).ToU32());
             dec_br.BaseStream.Position = 0xB8;
-            enables.Add(dec_br.ReadBytes(4).ToU32());
+            enables.Add(dec_br.ReadBytes(4).ToU32());   //16 - SFX
             dec_br.BaseStream.Position = 0xBC;
             cwavLen = dec_br.ReadBytes(4).ToU32();
             dec_br.Close();
@@ -500,7 +498,7 @@ namespace YATA {
                 //header
                 bw.Write(1);
                 bw.Write((byte)0);
-                bw.Write((byte)(useBGM ? 0x1 : 0x0));
+                bw.Write((byte)useBGM);
                 bw.Write((byte)0);
                 bw.Write((byte)0);
                 bw.Write(0);
