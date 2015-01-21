@@ -268,13 +268,13 @@ namespace YATA {
             cols[12][15] = colBotBut[5].R; cols[12][16] = colBotBut[5].G; cols[12][17] = colBotBut[5].B;
             cols[12][18] = colBotBut[6].R; cols[12][19] = colBotBut[6].G; cols[12][20] = colBotBut[6].B;
 
-            cols[13][0] = colCursor[0].R; cols[13][1] = colCursor[0].G; cols[13][2] = colCursor[0].B;
-            cols[13][3] = colCursor[1].R; cols[13][4] = colCursor[1].G; cols[13][5] = colCursor[1].B;
-            cols[13][6] = colCursor[2].R; cols[13][7] = colCursor[2].G; cols[13][8] = colCursor[2].B;
-            cols[13][9] = colCursor[3].R; cols[13][10] = colCursor[3].G; cols[13][11] = colCursor[3].B;
+            cols[13][0] = colTopOverlay[0].R; cols[13][1] = colTopOverlay[0].G; cols[13][2] = colTopOverlay[0].B;
+            cols[13][3] = colTopOverlay[1].R; cols[13][4] = colTopOverlay[1].G; cols[13][5] = colTopOverlay[1].B;
+            cols[13][6] = colTopOverlay[2].R; cols[13][7] = colTopOverlay[2].G; cols[13][8] = colTopOverlay[2].B;
+            cols[13][9] = colTopOverlay[3].R; cols[13][10] = colTopOverlay[3].G; cols[13][11] = colTopOverlay[3].B;
 
-            cols[14][0] = col3DFolder[0].R; cols[14][1] = col3DFolder[0].G; cols[14][2] = col3DFolder[0].B;
-            cols[14][3] = col3DFolder[1].R; cols[14][4] = col3DFolder[1].G; cols[14][5] = col3DFolder[1].B;
+            cols[14][0] = colDemoMsg[0].R; cols[14][1] = colDemoMsg[0].G; cols[14][2] = colDemoMsg[0].B;
+            cols[14][3] = colDemoMsg[1].R; cols[14][4] = colDemoMsg[1].G; cols[14][5] = colDemoMsg[1].B;
         }
 
         private void buttonSaveSett_Click(object sender, EventArgs e) {
