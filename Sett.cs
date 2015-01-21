@@ -244,29 +244,29 @@ namespace YATA {
             cols[7][0] = colGameTxt[0].R; cols[7][1] = colGameTxt[0].G; cols[7][2] = colGameTxt[0].B;
             cols[7][10] = colGameTxt[1].R; cols[7][11] = colGameTxt[1].G; cols[7][12] = colGameTxt[1].B;
 
-            cols[8][0] = colArrow[0].R; cols[8][1] = colArrow[0].G; cols[8][2] = colArrow[0].B;
-            cols[8][3] = colArrow[1].R; cols[8][4] = colArrow[1].G; cols[8][5] = colArrow[1].B;
-            cols[8][6] = colArrow[2].R; cols[8][7] = colArrow[2].G; cols[8][8] = colArrow[2].B;
-            cols[8][9] = colArrow[3].A; cols[8][10] = colArrow[3].R; cols[8][11] = colArrow[3].G; cols[8][12] = colArrow[3].B;
+            cols[8][0] = colBotSolid[0].R; cols[8][1] = colBotSolid[0].G; cols[8][2] = colBotSolid[0].B;
+            cols[8][3] = colBotSolid[1].R; cols[8][4] = colBotSolid[1].G; cols[8][5] = colBotSolid[1].B;
+            cols[8][6] = colBotSolid[2].R; cols[8][7] = colBotSolid[2].G; cols[8][8] = colBotSolid[2].B;
+            cols[8][9] = colBotSolid[3].A; cols[8][10] = colBotSolid[3].R; cols[8][11] = colBotSolid[3].G; cols[8][12] = colBotSolid[3].B;
 
-            cols[9][0] = colArrow[0].R; cols[9][1] = colArrow[0].G; cols[9][2] = colArrow[0].B;
-            cols[9][3] = colArrow[1].R; cols[9][4] = colArrow[1].G; cols[9][5] = colArrow[1].B;
-            cols[9][6] = colArrow[2].R; cols[9][7] = colArrow[2].G; cols[9][8] = colArrow[2].B;
+            cols[9][0] = colBotOuter[0].R; cols[9][1] = colBotOuter[0].G; cols[9][2] = colBotOuter[0].B;
+            cols[9][3] = colBotOuter[1].R; cols[9][4] = colBotOuter[1].G; cols[9][5] = colBotOuter[1].B;
+            cols[9][6] = colBotOuter[2].R; cols[9][7] = colBotOuter[2].G; cols[9][8] = colBotOuter[2].B;
 
-            cols[10][0] = colArrow[0].R; cols[10][1] = colArrow[0].G; cols[10][2] = colArrow[0].B;
-            cols[10][3] = colArrow[1].R; cols[10][4] = colArrow[1].G; cols[10][5] = colArrow[1].B;
-            cols[10][6] = colArrow[2].R; cols[10][7] = colArrow[2].G; cols[10][8] = colArrow[2].B;
-            cols[10][9] = colArrow[3].A; cols[10][10] = colArrow[3].R; cols[10][11] = colArrow[3].G; cols[10][12] = colArrow[3].B;
+            cols[10][0] = colFolderBG[0].R; cols[10][1] = colFolderBG[0].G; cols[10][2] = colFolderBG[0].B;
+            cols[10][3] = colFolderBG[1].R; cols[10][4] = colFolderBG[1].G; cols[10][5] = colFolderBG[1].B;
+            cols[10][6] = colFolderBG[2].R; cols[10][7] = colFolderBG[2].G; cols[10][8] = colFolderBG[2].B;
+            cols[10][9] = colFolderBG[3].A; cols[10][10] = colFolderBG[3].R; cols[10][11] = colFolderBG[3].G; cols[10][12] = colFolderBG[3].B;
 
-            cols[11][0] = colArrow[0].R; cols[11][1] = colArrow[0].G; cols[11][2] = colArrow[0].B;
+            cols[11][0] = colFolderArrow[0].R; cols[11][1] = colFolderArrow[0].G; cols[11][2] = colFolderArrow[0].B;
 
-            cols[12][0] = colBotBut[0].R; cols[12][1] = colBotBut[0].G; cols[12][2] = colBotBut[0].B;
-            cols[12][3] = colBotBut[1].R; cols[12][4] = colBotBut[1].G; cols[12][5] = colBotBut[1].B;
-            cols[12][6] = colBotBut[2].R; cols[12][7] = colBotBut[2].G; cols[12][8] = colBotBut[2].B;
-            cols[12][9] = colBotBut[3].R; cols[12][10] = colBotBut[3].G; cols[12][11] = colBotBut[3].B;
-            cols[12][12] = colBotBut[4].R; cols[12][13] = colBotBut[4].G; cols[12][14] = colBotBut[4].B;
-            cols[12][15] = colBotBut[5].R; cols[12][16] = colBotBut[5].G; cols[12][17] = colBotBut[5].B;
-            cols[12][18] = colBotBut[6].R; cols[12][19] = colBotBut[6].G; cols[12][20] = colBotBut[6].B;
+            cols[12][0] = colIconResize[0].R; cols[12][1] = colIconResize[0].G; cols[12][2] = colIconResize[0].B;
+            cols[12][3] = colIconResize[1].R; cols[12][4] = colIconResize[1].G; cols[12][5] = colIconResize[1].B;
+            cols[12][6] = colIconResize[2].R; cols[12][7] = colIconResize[2].G; cols[12][8] = colIconResize[2].B;
+            cols[12][9] = colIconResize[3].R; cols[12][10] = colIconResize[3].G; cols[12][11] = colIconResize[3].B;
+            cols[12][12] = colIconResize[4].R; cols[12][13] = colIconResize[4].G; cols[12][14] = colIconResize[4].B;
+            cols[12][15] = colIconResize[5].R; cols[12][16] = colIconResize[5].G; cols[12][17] = colIconResize[5].B;
+            cols[12][18] = colIconResize[6].R; cols[12][19] = colIconResize[6].G; cols[12][20] = colIconResize[6].B;
 
             cols[13][0] = colTopOverlay[0].R; cols[13][1] = colTopOverlay[0].G; cols[13][2] = colTopOverlay[0].B;
             cols[13][3] = colTopOverlay[1].R; cols[13][4] = colTopOverlay[1].G; cols[13][5] = colTopOverlay[1].B;
