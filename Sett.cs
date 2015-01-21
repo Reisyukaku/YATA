@@ -317,8 +317,55 @@ namespace YATA {
         private void colorSelect(object sender, EventArgs e) {
             if(colDialog.ShowDialog() == DialogResult.OK){
                 ((Button)sender).BackColor = colDialog.Color;
-                string[] but = ((Button)sender).Name.Split('-');
-
+                int buttonSet = Convert.ToInt32((((Button)sender).Name.Split('-'))[0]);
+                int button = Convert.ToInt32((((Button)sender).Name.Split('-'))[1]);
+                switch(buttonSet){
+                    case 0:
+                        colCursor[button] = colDialog.Color;
+                        break;
+                    case 1:
+                        col3DFolder[button] = colDialog.Color;
+                        break;
+                    case 2:
+                        colFiles[button] = colDialog.Color;
+                        break;
+                    case 3:
+                        colArrowBut[button] = colDialog.Color;
+                        break;
+                    case 4:
+                        colArrow[button] = colDialog.Color;
+                        break;
+                    case 5:
+                        colBotBut[button] = colDialog.Color;
+                        break;
+                    case 6:
+                        colClose[button] = colDialog.Color;
+                        break;
+                    case 7:
+                        colGameTxt[button] = colDialog.Color;
+                        break;
+                    case 8:
+                        colBotSolid[button] = colDialog.Color;
+                        break;
+                    case 9:
+                        colBotOuter[button] = colDialog.Color;
+                        break;
+                    case 10:
+                        colFolderBG[button] = colDialog.Color;
+                        break;
+                    case 11:
+                        colFolderArrow[button] = colDialog.Color;
+                        break;
+                    case 12:
+                        colIconResize[button] = colDialog.Color;
+                        break;
+                    case 13:
+                        colTopOverlay[button] = colDialog.Color;
+                        break;
+                    case 14:
+                        colDemoMsg[button] = colDialog.Color;
+                        break;
+                }
             }
         }
 
