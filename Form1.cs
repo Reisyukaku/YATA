@@ -38,6 +38,7 @@ namespace YATA {
         //Other
         private bool imgListBoxLoaded = false;
         private string path = null;
+        private string filename = null;
         private uint[] imgOffs;
         private uint[] imgLens;
         private uint[] colorOffs;
@@ -64,7 +65,11 @@ namespace YATA {
                 imgLens = null;
                 colorOffs = null;
                 imageArray = null;
+                RGBOffs.Clear();
+                colChunks = null;
+                imgListBoxLoaded = false;
                 path = openFileLZ.FileName.Substring(0, openFileLZ.FileName.LastIndexOf("\\") + 1);
+                filename = openFileLZ.FileName.Substring(path.Length, openFileLZ.FileName.Length - path.Length);
                 dsdecmp.Decompress(openFileLZ.FileName, path + "dec_LZ.bin");
 
                 try {
@@ -122,14 +127,14 @@ namespace YATA {
             if (imgOffs[3] > 0) lens.Add(0x10000);
             if (imgOffs[4] > 0) lens.Add(0x10000);
             if (imgOffs[5] > 0) lens.Add(0x4000);
-            imgListBoxLoaded = true;
             imgLens = lens.ToArray();
             for (int i = 0; i < imgOffs.Length; i++) {
                 if (imgOffs[i] > 0) images.Add(getImage(imgOffs[i], imgLens[i], i > 1 ? RGB888 : RGB565));
             }
             if (cwavOff > 0) cwav = getCWAV();
             imageArray = images.ToArray();
-            updatePicBox();
+            imgListBoxLoaded = true;
+            updatePicBox(0);
         }
 
         private void loadFlags() {
@@ -284,13 +289,13 @@ namespace YATA {
             colChunks = cols.ToArray();
         }
 
-        private void updatePicBox() {
-            pictureBox1.Image = imageArray[imgListBox.SelectedIndex];
+        private void updatePicBox(int i) {
+            pictureBox1.Image = imageArray[i];
         }
 
         private void imgListBox_SelectedIndexChanged(object sender, EventArgs e) {
             if (imgListBoxLoaded == true) {
-                updatePicBox();
+                updatePicBox(imgListBox.SelectedIndex);
             }
         }
 
@@ -600,7 +605,7 @@ namespace YATA {
                     Bitmap mBitmap = new Bitmap(img);
                     if (mBitmap.Size.Height.isPower2() && mBitmap.Size.Width.isPower2()) {
                         imageArray[imgListBox.SelectedIndex] = mBitmap;
-                        updatePicBox();
+                        updatePicBox(imgListBox.SelectedIndex);
                     }
                     else {
                         MessageBox.Show("Error: Image is not a power of 2.");
@@ -613,8 +618,8 @@ namespace YATA {
 
         private void saveFile_Click(object sender, EventArgs e) {
             makeTheme(path + "\\dec_body_LZ.bin");
-            dsdecmp.Compress(path + "\\dec_body_LZ.bin", path + "\\body_LZ.bin");
-            File.Delete(path + "\\dec_body_LZ.bin");
+            dsdecmp.Compress(path + "\\dec_body_LZ.bin", path + filename);
+            //File.Delete(path + "\\dec_body_LZ.bin");
             MessageBox.Show("Theme saved!");
         }
 

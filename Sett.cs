@@ -233,12 +233,12 @@ namespace YATA {
             cols[5][20] = colBotBut[3].R; cols[5][21] = colBotBut[3].G; cols[5][22] = colBotBut[3].B;
             cols[5][23] = colBotBut[4].R; cols[5][24] = colBotBut[4].G; cols[5][25] = colBotBut[4].B;
             cols[5][26] = colBotBut[5].R; cols[5][27] = colBotBut[5].G; cols[5][28] = colBotBut[5].B;
-            cols[6][4] = colBotBut[0].R; cols[6][5] = colBotBut[0].G; cols[6][6] = colBotBut[0].B;
-            cols[6][7] = colBotBut[1].R; cols[6][8] = colBotBut[1].G; cols[6][9] = colBotBut[1].B;
-            cols[6][10] = colBotBut[2].R; cols[6][11] = colBotBut[2].G; cols[6][12] = colBotBut[2].B;
-            cols[6][20] = colBotBut[3].R; cols[6][21] = colBotBut[3].G; cols[6][22] = colBotBut[3].B;
-            cols[6][23] = colBotBut[4].R; cols[6][24] = colBotBut[4].G; cols[6][25] = colBotBut[4].B;
-            cols[6][26] = colBotBut[5].R; cols[6][27] = colBotBut[5].G; cols[6][28] = colBotBut[5].B;
+            cols[6][4] = colClose[0].R; cols[6][5] = colClose[0].G; cols[6][6] = colClose[0].B;
+            cols[6][7] = colClose[1].R; cols[6][8] = colClose[1].G; cols[6][9] = colClose[1].B;
+            cols[6][10] = colClose[2].R; cols[6][11] = colClose[2].G; cols[6][12] = colClose[2].B;
+            cols[6][20] = colClose[3].R; cols[6][21] = colClose[3].G; cols[6][22] = colClose[3].B;
+            cols[6][23] = colClose[4].R; cols[6][24] = colClose[4].G; cols[6][25] = colClose[4].B;
+            cols[6][26] = colClose[5].R; cols[6][27] = colClose[5].G; cols[6][28] = colClose[5].B;
 
             cols[7][0] = colGameTxt[0].R; cols[7][1] = colGameTxt[0].G; cols[7][2] = colGameTxt[0].B;
             cols[7][10] = colGameTxt[1].R; cols[7][11] = colGameTxt[1].G; cols[7][12] = colGameTxt[1].B;
