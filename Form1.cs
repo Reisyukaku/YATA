@@ -97,8 +97,8 @@ namespace YATA {
                 }
                 catch (IOException) {
                 }
-                loadList();
                 loadFlags();
+                loadList();
                 loadColors();
                 SimToolStrip.Enabled = true;
                 toolStripSettings.Enabled = true;
@@ -121,15 +121,15 @@ namespace YATA {
             imgListBox.DataSource = strList.ToArray();
             List<uint> lens = new List<uint>();
             List<Bitmap> images = new List<Bitmap>();
-            if (imgOffs[0] > 0) lens.Add(imgOffs[1] - imgOffs[0]);
-            if (imgOffs[1] > 0) lens.Add(unk - imgOffs[1]);
-            if (imgOffs[2] > 0) lens.Add(0x10000);
-            if (imgOffs[3] > 0) lens.Add(0x10000);
-            if (imgOffs[4] > 0) lens.Add(0x10000);
-            if (imgOffs[5] > 0) lens.Add(0x4000);
+            if (topDraw >= 2) lens.Add((uint)(topFrame == 1 ? 0x40000 : 0x80000)); else lens.Add(0);
+            if (bottomDraw == 3) lens.Add((uint)(bottomFrame == 1 ? 0x40000 : 0x80000)); else lens.Add(0);
+            if (enableSec[2] > 0) lens.Add(0x10000); else lens.Add(0);
+            if (enableSec[2] > 0) lens.Add(0x10000); else lens.Add(0);
+            if (enableSec[4] > 0) lens.Add(0x10000); else lens.Add(0);
+            if (enableSec[4] > 0) lens.Add(0x4000); else lens.Add(0);
             imgLens = lens.ToArray();
             for (int i = 0; i < imgOffs.Length; i++) {
-                if (imgOffs[i] > 0) images.Add(getImage(imgOffs[i], imgLens[i], i > 1 ? RGB888 : RGB565));
+                if (imgLens[i] > 0) images.Add(getImage(imgOffs[i], imgLens[i], i > 1 ? RGB888 : RGB565));
             }
             if (cwavOff > 0) cwav = getCWAV();
             imageArray = images.ToArray();
