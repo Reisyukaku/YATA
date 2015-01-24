@@ -29,6 +29,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -70,7 +71,6 @@
             this.CHK0 = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.colDialog = new System.Windows.Forms.ColorDialog();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -123,7 +123,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Bottom bottom:";
+            this.label2.Text = "Bottom screen:";
             // 
             // label1
             // 
@@ -157,6 +157,15 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Colors";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(14, 170);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(70, 13);
+            this.label19.TabIndex = 30;
+            this.label19.Text = "Close Button:";
             // 
             // label18
             // 
@@ -328,6 +337,7 @@
             this.CB_topFrame.Items.AddRange(new object[] {
             "Normal scroll",
             "None",
+            "(invalid)",
             "Slow scroll"});
             this.CB_topFrame.Location = new System.Drawing.Point(90, 29);
             this.CB_topFrame.Name = "CB_topFrame";
@@ -341,7 +351,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Bottom bottom:";
+            this.label3.Text = "Bottom screen:";
             // 
             // label4
             // 
@@ -568,15 +578,6 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(14, 170);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(70, 13);
-            this.label19.TabIndex = 30;
-            this.label19.Text = "Close Button:";
             // 
             // Sett
             // 

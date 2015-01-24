@@ -70,10 +70,10 @@ namespace YATA {
                 imgListBoxLoaded = false;
                 path = openFileLZ.FileName.Substring(0, openFileLZ.FileName.LastIndexOf("\\") + 1);
                 filename = openFileLZ.FileName.Substring(path.Length, openFileLZ.FileName.Length - path.Length);
-                dsdecmp.Decompress(openFileLZ.FileName, path + "dec_LZ.bin");
+                dsdecmp.Decompress(openFileLZ.FileName, path + "dec_" + filename);
 
                 try {
-                    BinaryReader br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+                    BinaryReader br = new BinaryReader(File.Open(path + "dec_" + filename, FileMode.Open));
                     if ((br.ReadBytes(4)).ToU32() != 0x1) { MessageBox.Show("Not a proper theme."); return; }
                     List<uint> offs = new List<uint>();
                     br.BaseStream.Position = 0x18;  //top
@@ -138,7 +138,7 @@ namespace YATA {
         }
 
         private void loadFlags() {
-            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_" + filename, FileMode.Open));
             List<uint> enables = new List<uint>();
             dec_br.BaseStream.Position = 0x5;
             useBGM = dec_br.ReadByte();
@@ -221,7 +221,7 @@ namespace YATA {
         }
 
         private void loadColors() {
-            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_" + filename, FileMode.Open));
             List<uint> offs = new List<uint>();
             dec_br.BaseStream.Position = 0x14;
             topColorOff = dec_br.ReadBytes(4).ToU32();
@@ -300,7 +300,7 @@ namespace YATA {
         }
 
         private byte[] getCWAV() {
-            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_" + filename, FileMode.Open));
             long cLen = dec_br.BaseStream.Length - cwavOff;
             byte[] wav;
             dec_br.BaseStream.Position = cwavOff;
@@ -337,7 +337,7 @@ namespace YATA {
                 imgHeight = 128;
             }
             Bitmap img = new Bitmap(imgWidth, imgHeight);
-            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_LZ.bin", FileMode.Open));
+            BinaryReader dec_br = new BinaryReader(File.Open(path + "dec_" + filename, FileMode.Open));
             dec_br.BaseStream.Position = offset;
             try {
                 uint x = 0, y = 0;
@@ -617,18 +617,18 @@ namespace YATA {
         }
 
         private void saveFile_Click(object sender, EventArgs e) {
-            makeTheme(path + "\\dec_body_LZ.bin");
-            dsdecmp.Compress(path + "\\dec_body_LZ.bin", path + filename);
-            //File.Delete(path + "\\dec_body_LZ.bin");
+            makeTheme(path + "new_dec_" + filename);
+            dsdecmp.Compress(path + "new_dec_" + filename, path + filename);
+            File.Delete(path + "new_dec_" + filename);
             MessageBox.Show("Theme saved!");
         }
-
+        
         private void saveAsFile_Click(object sender, EventArgs e) {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
-                makeTheme(newpath + "dec_body_LZ.bin");
-                dsdecmp.Compress(newpath + "dec_body_LZ.bin", saveTheme.FileName);
-                File.Delete(newpath + "dec_body_LZ.bin");
+                makeTheme(newpath + "new_dec_" + filename);
+                dsdecmp.Compress(path + "new_dec_" + filename, saveTheme.FileName);
+                File.Delete(path + "new_dec_" + filename);
                 MessageBox.Show("Theme saved!");
             }
         }

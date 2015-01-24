@@ -63,8 +63,8 @@ namespace YATA {
             foreach (Button b in col15) this.groupBox2.Controls.Add(b);
             flags = Form1.enableSec.ToArray();
             CB_topDraw.SelectedIndex = (int)Form1.topDraw;
-            CB_botDraw.SelectedIndex = (int)Form1.bottomDraw;
             CB_topFrame.SelectedIndex = (int)Form1.topFrame;
+            CB_botDraw.SelectedIndex = (int)Form1.bottomDraw;
             CB_botFrame.SelectedIndex = (int)Form1.bottomFrame;
             CHK0.Checked = flags[0] == 1 ? true : false;
             CHK1.Checked = flags[1] == 1 ? true : false;
