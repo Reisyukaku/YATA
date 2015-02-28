@@ -18,6 +18,7 @@ namespace YATA {
         //Constants
         private const int RGB565 = 0;
         private const int RGB888 = 1;
+        private const int BGR888 = 2;
         private readonly string[] imgEnum = { 
                                          "Top",
                                          "Bottom",
@@ -410,6 +411,12 @@ namespace YATA {
                         array.Add((byte)c.G);
                         array.Add((byte)c.B);
                     }
+                    else if (format == BGR888)
+                    {
+                        array.Add((byte)c.B);
+                        array.Add((byte)c.G);
+                        array.Add((byte)c.R);
+                    }
                 }
 
             }
@@ -497,7 +504,7 @@ namespace YATA {
             y &= 0x0000ffff;
         }
 
-        private void makeTheme(string file) {
+        private void makeTheme(string file, bool for3DS) {
             using (BinaryWriter bw = new BinaryWriter(File.Create(file))) {
                 //header
                 bw.Write(1);
@@ -560,11 +567,51 @@ namespace YATA {
                 if(bottomDraw == 3) bw.Write(bitmapToRawImg(imageArray[1], RGB565));
                 if(enableSec[0] == 1) bw.Write(colChunks[0]);
                 if (enableSec[1] == 1) bw.Write(colChunks[1]);
-                if (enableSec[2] == 1) bw.Write(bitmapToRawImg(imageArray[2], RGB888));
-                if (enableSec[2] == 1) bw.Write(bitmapToRawImg(imageArray[3], RGB888));
+                if (enableSec[2] == 1)
+                {
+                    if (for3DS)
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[2], BGR888));
+                    }
+                    else
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[2], RGB888));
+                    }
+                }
+                if (enableSec[2] == 1)
+                {
+                    if (for3DS)
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[3], BGR888));
+                    }
+                    else
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[3], RGB888));
+                    }
+                }
                 if (enableSec[3] == 1) bw.Write(colChunks[2]);
-                if (enableSec[4] == 1) bw.Write(bitmapToRawImg(imageArray[4], RGB888));
-                if (enableSec[4] == 1) bw.Write(bitmapToRawImg(imageArray[5], RGB888));
+                if (enableSec[4] == 1)
+                {
+                    if (for3DS)
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[4], BGR888));
+                    }
+                    else
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[4], RGB888));
+                    }
+                }
+                if (enableSec[4] == 1)
+                {
+                    if (for3DS)
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[5], BGR888));
+                    }
+                    else
+                    {
+                        bw.Write(bitmapToRawImg(imageArray[5], RGB888));
+                    }
+                }
                 if (enableSec[5] == 1) bw.Write(colChunks[3]);
                 if (enableSec[6] == 1) bw.Write(colChunks[4]);
                 if (enableSec[7] == 1) bw.Write(colChunks[5]);
@@ -617,7 +664,7 @@ namespace YATA {
         }
 
         private void saveFile_Click(object sender, EventArgs e) {
-            makeTheme(path + "new_dec_" + filename);
+            makeTheme(path + "new_dec_" + filename, false);
             dsdecmp.Compress(path + "new_dec_" + filename, path + filename);
             File.Delete(path + "new_dec_" + filename);
             MessageBox.Show("Theme saved!");
@@ -626,10 +673,21 @@ namespace YATA {
         private void saveAsFile_Click(object sender, EventArgs e) {
             if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
-                makeTheme(newpath + "new_dec_" + filename);
+                makeTheme(newpath + "new_dec_" + filename, false);
                 dsdecmp.Compress(path + "new_dec_" + filename, saveTheme.FileName);
                 File.Delete(path + "new_dec_" + filename);
-                MessageBox.Show("Theme saved!");
+                MessageBox.Show("Theme saved for later editing!");
+            }
+        }
+        private void saveFor3DS_Click(object sender, EventArgs e)
+        {
+            if (saveTheme.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string newpath = saveTheme.FileName.Substring(0, saveTheme.FileName.LastIndexOf("\\") + 1);
+                makeTheme(newpath + "new_dec_" + filename, true);
+                dsdecmp.Compress(path + "new_dec_" + filename, saveTheme.FileName);
+                File.Delete(path + "new_dec_" + filename);
+                MessageBox.Show("Theme saved for use with the 3DS!");
             }
         }
 
@@ -652,6 +710,9 @@ namespace YATA {
                 cwav = File.ReadAllBytes(openCWAVDialog.FileName);
             }
         }
+
+        
+
     }
     public static class exten {
         public static uint ToU32(this byte[] b) {
