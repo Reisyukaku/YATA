@@ -31,6 +31,7 @@
             this.openFile = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFile = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFor3DS = new System.Windows.Forms.ToolStripMenuItem();
             this.prefToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.EditDropDown = new System.Windows.Forms.ToolStripDropDownButton();
             this.importImage = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +75,7 @@
             this.openFile,
             this.saveFile,
             this.saveAsFile,
+            this.saveFor3DS,
             this.prefToolStrip});
             this.FileDropDown.Image = ((System.Drawing.Image)(resources.GetObject("FileDropDown.Image")));
             this.FileDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -85,42 +87,47 @@
             // newFile
             // 
             this.newFile.Name = "newFile";
-            this.newFile.Size = new System.Drawing.Size(135, 22);
+            this.newFile.Size = new System.Drawing.Size(156, 22);
             this.newFile.Text = "New";
             this.newFile.Click += new System.EventHandler(this.newFile_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             // 
             // openFile
             // 
             this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(135, 22);
+            this.openFile.Size = new System.Drawing.Size(156, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
             // saveFile
             // 
-            this.saveFile.Enabled = false;
             this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(135, 22);
+            this.saveFile.Size = new System.Drawing.Size(156, 22);
             this.saveFile.Text = "Save";
-            this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
             // 
             // saveAsFile
             // 
             this.saveAsFile.Enabled = false;
             this.saveAsFile.Name = "saveAsFile";
-            this.saveAsFile.Size = new System.Drawing.Size(135, 22);
-            this.saveAsFile.Text = "Save As...";
+            this.saveAsFile.Size = new System.Drawing.Size(156, 22);
+            this.saveAsFile.Text = "Save for Editing";
             this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
+            // 
+            // saveFor3DS
+            // 
+            this.saveFor3DS.Name = "saveFor3DS";
+            this.saveFor3DS.Size = new System.Drawing.Size(156, 22);
+            this.saveFor3DS.Text = "Save for 3DS";
+            this.saveFor3DS.Click += new System.EventHandler(this.saveFor3DS_Click);
             // 
             // prefToolStrip
             // 
             this.prefToolStrip.Name = "prefToolStrip";
-            this.prefToolStrip.Size = new System.Drawing.Size(135, 22);
+            this.prefToolStrip.Size = new System.Drawing.Size(156, 22);
             this.prefToolStrip.Text = "Preferences";
             this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
             // 
@@ -277,7 +284,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton EditDropDown;
         private System.Windows.Forms.ToolStripMenuItem importImage;
-        private System.Windows.Forms.ToolStripMenuItem saveFile;
         private System.Windows.Forms.ToolStripMenuItem saveAsFile;
         private System.Windows.Forms.ToolStripMenuItem saveImage;
         private System.Windows.Forms.SaveFileDialog saveTheme;
@@ -287,6 +293,8 @@
         private System.Windows.Forms.SaveFileDialog saveCWAVDialog;
         private System.Windows.Forms.ToolStripMenuItem importCWAVButton;
         private System.Windows.Forms.OpenFileDialog openCWAVDialog;
+        private System.Windows.Forms.ToolStripMenuItem saveFor3DS;
+        private System.Windows.Forms.ToolStripMenuItem saveFile;
     }
 }
 
