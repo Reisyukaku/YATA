@@ -87,48 +87,47 @@
             // newFile
             // 
             this.newFile.Name = "newFile";
-            this.newFile.Size = new System.Drawing.Size(168, 22);
+            this.newFile.Size = new System.Drawing.Size(156, 22);
             this.newFile.Text = "New";
             this.newFile.Click += new System.EventHandler(this.newFile_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             // 
             // openFile
             // 
             this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(168, 22);
+            this.openFile.Size = new System.Drawing.Size(156, 22);
             this.openFile.Text = "Open";
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
             // saveFile
             // 
             this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(168, 22);
+            this.saveFile.Size = new System.Drawing.Size(156, 22);
             this.saveFile.Text = "Save";
             // 
             // saveAsFile
             // 
             this.saveAsFile.Enabled = false;
             this.saveAsFile.Name = "saveAsFile";
-            this.saveAsFile.Size = new System.Drawing.Size(168, 22);
-            this.saveAsFile.Text = "Save as RGB";
+            this.saveAsFile.Size = new System.Drawing.Size(156, 22);
+            this.saveAsFile.Text = "Save for Editing";
             this.saveAsFile.Click += new System.EventHandler(this.saveAsFile_Click);
             // 
             // saveFor3DS
             // 
             this.saveFor3DS.Name = "saveFor3DS";
-            this.saveFor3DS.Size = new System.Drawing.Size(168, 22);
-            this.saveFor3DS.Text = "Save as BGR (3DS)";
-            this.saveFor3DS.ToolTipText = "This will simply convert RGB to BGR.\r\nWhat you see, is NOT what you get! ";
+            this.saveFor3DS.Size = new System.Drawing.Size(156, 22);
+            this.saveFor3DS.Text = "Save for 3DS";
             this.saveFor3DS.Click += new System.EventHandler(this.saveFor3DS_Click);
             // 
             // prefToolStrip
             // 
             this.prefToolStrip.Name = "prefToolStrip";
-            this.prefToolStrip.Size = new System.Drawing.Size(168, 22);
+            this.prefToolStrip.Size = new System.Drawing.Size(156, 22);
             this.prefToolStrip.Text = "Preferences";
             this.prefToolStrip.Click += new System.EventHandler(this.prefToolStrip_Click);
             // 
